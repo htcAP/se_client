@@ -129,6 +129,7 @@ const styles = StyleSheet.create({
 
   content: {
     margin: 8,
+    paddingTop: 8
   },
 
   input: {

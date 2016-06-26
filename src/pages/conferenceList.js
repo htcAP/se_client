@@ -4,13 +4,20 @@ import {
   View,
 } from 'react-native';
 
+import NavBar from '../components/navbar';
+import MenuButton from '../components/menuButton';
+
 class ConferenceListPage extends Component {
 
   render() {
+
     return (
       <View>
+        <NavBar
+          leftNav={<MenuButton />}
+        />
         <Text>
-          Hello
+          =.=
         </Text>
       </View>
     );

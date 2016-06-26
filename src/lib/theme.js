@@ -11,7 +11,8 @@ setTheme({
     flex: 0,
   },
 
-  primaryColor: MKColor.Cyan
+  primaryColor: MKColor.Cyan,
+  white: '#FFF',
 });
 
 let theme = getTheme();
