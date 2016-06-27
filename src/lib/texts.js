@@ -11,6 +11,8 @@ let texts = {
   Login:
   '登录',
 
+  Logout:
+  '退出登录',
 };
 
 export default texts;

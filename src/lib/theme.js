@@ -11,11 +11,20 @@ setTheme({
     flex: 0,
   },
 
-  primaryColor: MKColor.Cyan,
+  container: {
+    flex: 1,
+  },
+
   white: '#FFF',
+  primaryColor: MKColor.Cyan,
+  primaryTextColor: '#FFF',
+  secondaryColor: MKColor.Indigo,
+  secondaryTextColor: '#FFF',
+  statusBarColor: 'rgba(0,0,0,0.54)',
+
+  lightSecondaryTextColor: 'rgba(0,0,0,0.87)',
 });
 
 let theme = getTheme();
-
 
 export default theme;

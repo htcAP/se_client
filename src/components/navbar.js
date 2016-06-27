@@ -21,7 +21,8 @@ export default class NavBar extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    height: 56,
+    paddingTop: 24,
+    height: 56 + 24,
     elevation: 4,
     backgroundColor: theme.primaryColor,
   },

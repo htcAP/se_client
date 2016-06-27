@@ -16,6 +16,7 @@ import {
 
 import theme from '../lib/theme';
 import texts from '../lib/texts';
+import StatusBar from '../components/statusbar';
 
 
 export default class LoginPage extends Component {
@@ -83,6 +84,7 @@ export default class LoginPage extends Component {
 
     return (
         <View style={[styles.wrapper, {height: this.state.visibleHeight}]}>
+          <StatusBar />
           <View style={[theme.cardStyle, styles.container]}>
             <View style={styles.header}>
               <Text style={styles.headerText}>

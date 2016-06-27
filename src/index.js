@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import {
+  StatusBar,
+} from 'react-native';
+import {
   Actions,
   Scene,
   Router,
