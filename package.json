@@ -8,13 +8,17 @@
     "android": "cd android && ./gradlew installDebug"
   },
   "dependencies": {
+    "key-mirror": "^1.0.1",
     "react": "15.1.0",
     "react-native": "0.28.0",
     "react-native-keyboard-aware-scroll-view": "^0.1.2",
     "react-native-keyboardevents": "^0.4.5",
     "react-native-material-kit": "^0.3.2",
     "react-native-router-flux": "^3.30.2",
-    "react-native-vector-icons": "^2.0.3"
+    "react-native-vector-icons": "^2.0.3",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2",
+    "redux-thunk": "^2.1.0"
   },
   "devDependencies": {
     "babel-eslint": "^6.1.0",

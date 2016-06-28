@@ -5,6 +5,10 @@ import {
   Router,
 } from 'react-native-router-flux';
 import NavigationCardStackStyleInterpolator from 'NavigationCardStackStyleInterpolator';
+import { 
+  connect,
+  Provider,
+} from 'react-redux';
 
 
 import LoginPage from './pages/login';
@@ -15,55 +19,65 @@ import ConferenceChoosePage from './pages/conferenceChoose';
 import ConferenceViewPage from './pages/conferenceView';
 import ViewAttendancePage from './pages/viewAttendance';
 
+import configureStore from './lib/configureStore';
+import { getInitialState } from './reducers';
+
+const RouterWithRedux = connect()(Router);
+
 export default class ConferenceApp extends Component {
 
+  scenes = Actions.create(
+    <Scene key="root"
+      hideNavBar={true}
+    >
+
+      <Scene key="login"
+        component={LoginPage}
+        initial={true}
+        getSceneStyle={NavigationCardStackStyleInterpolator.forVertical}
+      />
+
+      <Scene key="conferenceList"
+        component={ConferenceListPage}
+        getSceneStyle={NavigationCardStackStyleInterpolator.forVertical}
+      />
+
+      <Scene key="conferenceNew"
+        component={ConferenceNewPage}
+        getSceneStyle={NavigationCardStackStyleInterpolator.forVertical}
+      />
+
+      <Scene key="selectAttendance"
+        component={SelectAttendancePage}
+        getSceneStyle={NavigationCardStackStyleInterpolator.forVertical}
+      />
+
+      <Scene key="conferenceChoose"
+        component={ConferenceChoosePage}
+        getSceneStyle={NavigationCardStackStyleInterpolator.forVertical}
+      />
+
+      <Scene key="conferenceView"
+        component={ConferenceViewPage}
+        getSceneStyle={NavigationCardStackStyleInterpolator.forVertical}
+      />
+
+      <Scene key="viewAttendance"
+        component={ViewAttendancePage}
+        getSceneStyle={NavigationCardStackStyleInterpolator.forVertical}
+      />
+
+    </Scene>
+  );
+
   render() {
-    const scenes = Actions.create(
-      <Scene key="root"
-        hideNavBar={true}
-      >
 
-        <Scene key="login"
-          component={LoginPage}
-          initial={true}
-          getSceneStyle={NavigationCardStackStyleInterpolator.forVertical}
-        />
-
-        <Scene key="conferenceList"
-          component={ConferenceListPage}
-          getSceneStyle={NavigationCardStackStyleInterpolator.forVertical}
-        />
-
-        <Scene key="conferenceNew"
-          component={ConferenceNewPage}
-          getSceneStyle={NavigationCardStackStyleInterpolator.forVertical}
-        />
-
-        <Scene key="selectAttendance"
-          component={SelectAttendancePage}
-          getSceneStyle={NavigationCardStackStyleInterpolator.forVertical}
-        />
-
-        <Scene key="conferenceChoose"
-          component={ConferenceChoosePage}
-          getSceneStyle={NavigationCardStackStyleInterpolator.forVertical}
-        />
-
-        <Scene key="conferenceView"
-          component={ConferenceViewPage}
-          getSceneStyle={NavigationCardStackStyleInterpolator.forVertical}
-        />
-
-        <Scene key="viewAttendance"
-          component={ViewAttendancePage}
-          getSceneStyle={NavigationCardStackStyleInterpolator.forVertical}
-        />
-
-      </Scene>
-    );
+    const store = configureStore(getInitialState());
 
     return (
-      <Router scenes={scenes} />
+      <Provider store={store}>
+        <RouterWithRedux scenes={this.scenes} />
+      </Provider>
     );
   }
 
