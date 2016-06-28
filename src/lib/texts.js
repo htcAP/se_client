@@ -17,6 +17,9 @@ let texts = {
   InputConferenceName:
   '输入会议名称...',
 
+  ConferenceContent:
+  '会议内容',
+
 };
 
 export default texts;

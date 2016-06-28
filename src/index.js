@@ -29,12 +29,12 @@ export default class ConferenceApp extends Component {
 
         <Scene key="conferenceList"
           component={ConferenceListPage}
-          initial={true}
           getSceneStyle={NavigationCardStackStyleInterpolator.forVertical}
         />
 
         <Scene key="conferenceNew"
           component={ConferenceNewPage}
+          initial={true}
           getSceneStyle={NavigationCardStackStyleInterpolator.forVertical}
         />
 

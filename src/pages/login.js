@@ -21,35 +21,7 @@ import StatusBar from '../components/statusbar';
 
 export default class LoginPage extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      visibleHeight: Dimensions.get('window').height
-    };
-  }
-
-  componentWillMount() {
-    Keyboard.addListener('keyboardDidShow', this.keyboardWillShow);
-    Keyboard.addListener('keyboardDidHide', this.keyboardWillHide);
-
-  }
-
-  keyboardWillShow = () => {
-    this.setState({
-      visibleHeight: Dimensions.get('window').height - 230
-    });
-    console.log('show');
-  }
-
-  keyboardWillHide = () =>  {
-    this.setState({
-      visibleHeight: Dimensions.get('window').height
-    });
-    console.log('hide');
-  }
-
   doLogin = () => {
-    this.keyboardWillHide();
     this._usernameInput.blur();
     this._passwordInput.blur();
     setTimeout(() => {
@@ -83,7 +55,7 @@ export default class LoginPage extends Component {
   render() {
 
     return (
-        <View style={[styles.wrapper, {height: this.state.visibleHeight}]}>
+        <View style={[styles.wrapper]}>
           <StatusBar />
           <View style={[theme.cardStyle, styles.container]}>
             <View style={styles.header}>
@@ -126,6 +98,7 @@ const styles = StyleSheet.create({
   },
 
   wrapper: {
+    flex: 1,
     justifyContent: 'center',
   },
 

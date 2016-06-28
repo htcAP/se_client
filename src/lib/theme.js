@@ -15,6 +15,35 @@ setTheme({
     flex: 1,
   },
 
+  conferDetailItermContainer: {
+    paddingTop: 8,
+    paddingBottom: 8,
+    paddingRight: 16,
+    borderBottomWidth: 1,
+    borderColor: 'rgba(0,0,0,.12)',
+  },
+
+  conferDetailIterm: {
+    height: 48,
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+
+  conferDetailIcon: {
+    width: 72 - 16 - 16,
+    marginLeft: 16,
+  },
+
+  conferDetailContent: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+
+  conferDetailContentText: {
+    fontSize: 16,
+  },
+
   white: '#FFF',
   primaryColor: MKColor.Cyan,
   primaryTextColor: '#FFF',
@@ -23,7 +52,7 @@ setTheme({
   secondaryTextColor: '#FFF',
   statusBarColor: 'rgba(0,0,0,0.48)',
 
-  lightSecondaryTextColor: 'rgba(0,0,0,0.87)',
+  lightSecondaryTextColor: 'rgba(0,0,0,0.34)',
   dividerColor: 'rgba(0,0,0,.12)',
 
   alertColor: '#f44336',

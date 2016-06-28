@@ -4,10 +4,12 @@ import {
   Text,
   StyleSheet,
   TextInput,
+  ScrollView,
 } from 'react-native';
 import {
   Actions,
 } from 'react-native-router-flux';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import IconButton from '../components/iconButton';
 import NavBar2 from '../components/navbar2';
@@ -18,6 +20,7 @@ import StatusBar from '../components/statusbar';
 export default class ConferenceNewPage extends Component {
 
   cancelOperation = () => {
+    this._titleInput.blur();
     Actions.pop();
   };
 
@@ -38,16 +41,77 @@ export default class ConferenceNewPage extends Component {
             onTouch={this.submitNewConference}
           />}
           title={
-            <TextInput
-              style={styles.title}
+            <TextInput style={styles.title}
               autoFocus={true}
               placeholder={texts.InputConferenceName}
               placeholderTextColor={theme.lightPrimaryTextColor}
               keyboardType="twitter"
               underlineColorAndroid="transparent"
+              ref={(c) => this._titleInput = c}
             />
           }
         />
+
+        <View style={{paddingTop: 8}} />
+
+        <ScrollView>
+
+        <View style={theme.conferDetailItermContainer}>
+        <View style={theme.conferDetailIterm}>
+          <Icon style={theme.conferDetailIcon}
+            name="subject"
+            size={24}
+          />
+          <TextInput style={[theme.conferDetailContent, theme.conferDetailContentText]}
+            placeholder={texts.ConferenceContent}
+            placeholderTextColor={theme.lightSecondaryTextColor}
+            keyboardType="twitter"
+            underlineColorAndroid="transparent"
+            ref={(c) => this._titleInput = c}
+          />
+        </View>
+        </View>
+
+        <View style={theme.conferDetailItermContainer}>
+        <View style={[theme.conferDetailIterm]}>
+          <Icon style={theme.conferDetailIcon}
+            name="query-builder"
+            size={24}
+          />
+          <View style={theme.conferDetailContent}>
+            <Text style={theme.conferDetailContentText}>
+              2016 June 1st
+            </Text>
+            <Text style={theme.conferDetailContentText}>
+              9:30 AM
+            </Text>
+          </View>
+        </View>
+
+        <View style={[theme.conferDetailIterm]}>
+          <View style={theme.conferDetailIcon} />
+          <View style={theme.conferDetailContent}>
+            <Text style={theme.conferDetailContentText}>
+              2016 June 1st
+            </Text>
+            <Text style={theme.conferDetailContentText}>
+              10:30 AM
+            </Text>
+          </View>
+        </View>
+
+        <View style={[theme.conferDetailIterm]}>
+          <View style={theme.conferDetailIcon} />
+          <Text style={[theme.conferDetailContent, theme.conferDetailContentText]}>
+            30 Minutes
+          </Text>
+        </View>
+
+        </View>
+
+
+        </ScrollView>
+
       </View>
     );
 
@@ -58,8 +122,8 @@ export default class ConferenceNewPage extends Component {
 const styles = StyleSheet.create({
   title: {
     marginTop: -12,
-    fontFamily: 'sans-serf-medium',
+    fontFamily: 'sans-serif-medium',
     fontSize: 16,
     color: theme.primaryTextColor,
-  }
+  },
 });
