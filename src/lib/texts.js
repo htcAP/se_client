@@ -35,6 +35,8 @@ let texts = {
   Arrangement:
   '方案',
 
+  Attendance:
+  '参会人员',
 
 };
 

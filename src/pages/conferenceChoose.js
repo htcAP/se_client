@@ -53,7 +53,7 @@ export default class ConferenceChoosePage extends Component {
         />
 
         <ScrollView style={theme.container}>
-          <View style={{paddingTop: 16}} />
+          <View style={{paddingTop: 8}} />
 
           <View style={[theme.cardStyle, styles.card]}>
             <View style={theme.conferDenseDetailItermContainer}>
@@ -180,9 +180,13 @@ export default class ConferenceChoosePage extends Component {
 
 const styles = StyleSheet.create({
  card: {
-   marginBottom: 16,
+   marginTop: 8,
+   marginBottom: 8,
    marginLeft: -1,
    marginRight: -1,
+   paddingTop: 4,
+   paddingBottom: 4,
+   backgroundColor: '#fff',
    borderRadius: 0,
  }
 });

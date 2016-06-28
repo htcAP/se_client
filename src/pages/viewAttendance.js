@@ -19,13 +19,9 @@ import StatusBar from '../components/statusbar';
 import texts from '../lib/texts';
 import theme from '../lib/theme';
 
-export default class SelectAttendancePage extends Component {
+export default class ViewAttendancePage extends Component {
 
   cancelOperation = () => {
-    Actions.pop();
-  }
-
-  submit = () => {
     Actions.pop();
   }
 
@@ -33,14 +29,10 @@ export default class SelectAttendancePage extends Component {
     return (
       <View>
         <StatusBar />
-        <NavBar title={texts.SelectAttendance}
+        <NavBar title={texts.Attendance}
           leftNav={ <IconButton
             iconName="clear"
             onTouch={this.cancelOperation}
-          />}
-          rightNav={<IconButton
-            iconName="done"
-            onTouch={this.submit}
           />}
         />
         <ScrollView>
@@ -53,7 +45,6 @@ export default class SelectAttendancePage extends Component {
             <Text style={styles.itemText}>
             htc
             </Text>
-            <MKCheckbox />
           </View>
 
           <View style={styles.item}>
@@ -63,7 +54,6 @@ export default class SelectAttendancePage extends Component {
             <Text style={styles.itemText}>
             htc
             </Text>
-            <MKCheckbox />
           </View>
 
           <View style={styles.item}>
@@ -73,7 +63,6 @@ export default class SelectAttendancePage extends Component {
             <Text style={styles.itemText}>
             htc
             </Text>
-            <MKCheckbox />
           </View>
 
           <View style={[theme.headerPadding]} />

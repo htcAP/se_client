@@ -42,6 +42,10 @@ class ConferenceListPage extends Component {
     Actions.conferenceNew();
   }
 
+  viewConference = () => {
+    Actions.conferenceView();
+  }
+
   onRefresh = () => {
     this.setState({isRefreshing: true});
     setTimeout(() => {
@@ -55,7 +59,7 @@ class ConferenceListPage extends Component {
   renderDrawer = () => {
 
     return (
-      <View style={[theme.container, theme.page]}>
+      <View style={theme.container}>
         <View style={styles.titleBar}>
           <View style={styles.avatarContainer}>
             <Image style={styles.avatar}
@@ -126,7 +130,9 @@ class ConferenceListPage extends Component {
           >
             <View style={theme.headerPadding} />
 
-            <TouchableNativeFeedback delayPressIn={20}>
+            <TouchableNativeFeedback delayPressIn={20}
+              onPress={this.viewConference}
+            >
             <View style={styles.conferItem}>
               <View style={styles.conferInfoContainer}>
                 <Text style={styles.conferTitle} numberOfLines={1}>
@@ -148,7 +154,9 @@ class ConferenceListPage extends Component {
             </View>
             </TouchableNativeFeedback>
 
-            <TouchableNativeFeedback delayPressIn={20}>
+            <TouchableNativeFeedback delayPressIn={20}
+              onPress={this.viewConference}
+            >
             <View style={styles.conferItem}>
               <View style={styles.conferInfoContainer}>
                 <Text style={styles.conferTitle} numberOfLines={1}>
@@ -206,6 +214,8 @@ const styles = StyleSheet.create({
 
   drawerContainer: {
     paddingTop: 8,
+    backgroundColor: '#fff',
+    flex: 1,
   },
 
   drawerItem: {

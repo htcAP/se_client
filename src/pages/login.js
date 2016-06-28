@@ -3,8 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Dimensions,
-  Keyboard,
 } from 'react-native';
 import {
   MKTextField,

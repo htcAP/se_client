@@ -26,6 +26,7 @@ export default class ConferenceNewPage extends Component {
   };
 
   submitNewConference = () => {
+    Actions.conferenceChoose();
   }
 
   selectAttendance = () => {
