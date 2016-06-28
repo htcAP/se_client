@@ -118,7 +118,7 @@ export default class ConferenceChoosePage extends Component {
           <View style={theme.conferDenseDetailIterm}>
             <View style={[theme.conferDetailIcon, {marginLeft: 10, marginRight: 6}]}>
               <MKRadioButton
-                checked={true}
+                checked={false}
                 group={this.radioGroup}
               />
             </View>

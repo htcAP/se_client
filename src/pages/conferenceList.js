@@ -55,7 +55,7 @@ class ConferenceListPage extends Component {
   renderDrawer = () => {
 
     return (
-      <View style={theme.container}>
+      <View style={[theme.container, theme.page]}>
         <View style={styles.titleBar}>
           <View style={styles.avatarContainer}>
             <Image style={styles.avatar}
@@ -122,8 +122,9 @@ class ConferenceListPage extends Component {
               onRefresh={this.onRefresh}
               colors={[theme.primaryColor, theme.secondaryColor]}
             />}
+            style={[theme.page, theme.container]}
           >
-            <View style={{paddingTop: 8}}/>
+            <View style={theme.headerPadding} />
 
             <TouchableNativeFeedback delayPressIn={20}>
             <View style={styles.conferItem}>
@@ -230,6 +231,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: theme.dividerColor,
     justifyContent: 'center',
+    backgroundColor: '#fff',
   },
 
   conferInfoContainer: {

@@ -17,6 +17,7 @@ import NavBar from '../components/navbar';
 import IconButton from '../components/iconButton';
 import StatusBar from '../components/statusbar';
 import texts from '../lib/texts';
+import theme from '../lib/theme';
 
 export default class SelectAttendancePage extends Component {
 
@@ -43,7 +44,7 @@ export default class SelectAttendancePage extends Component {
           />}
         />
         <ScrollView>
-          <View style={{paddingTop: 8}} />
+          <View style={[theme.headerPadding]} />
 
           <View style={styles.item}>
             <Image style={styles.itemAvatar}
@@ -74,6 +75,8 @@ export default class SelectAttendancePage extends Component {
             </Text>
             <MKCheckbox />
           </View>
+          
+          <View style={[theme.headerPadding]} />
 
         </ScrollView>
       </View>
@@ -90,6 +93,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor: '#fff',
   },
 
   itemAvatar: {

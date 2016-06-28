@@ -1,7 +1,6 @@
 import {
   getTheme,
   setTheme,
-  MKColor,
 } from 'react-native-material-kit';
 
 setTheme({
@@ -11,11 +10,16 @@ setTheme({
     flex: 0,
   },
 
+  page: {
+    backgroundColor: '#eee',
+  },
+
   container: {
     flex: 1,
   },
 
   conferDetailItermContainer: {
+    backgroundColor: '#fff',
     paddingTop: 8,
     paddingBottom: 8,
     paddingRight: 16,
@@ -24,6 +28,7 @@ setTheme({
   },
 
   conferDenseDetailItermContainer: {
+    backgroundColor: '#fff',
     paddingTop: 4,
     paddingBottom: 4,
     paddingRight: 16,
@@ -56,6 +61,11 @@ setTheme({
     fontSize: 16,
   },
 
+  headerPadding: {
+    paddingTop: 8,
+    backgroundColor: '#fff',
+  },
+
   white: '#FFF',
   primaryColor: '#00BCD4',
   primaryTextColor: '#FFF',
@@ -68,6 +78,7 @@ setTheme({
   dividerColor: 'rgba(0,0,0,.12)',
 
   alertColor: '#f44336',
+  pageBackgroundColor: '#eee',
 });
 
 let theme = getTheme();

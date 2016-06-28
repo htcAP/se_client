@@ -34,7 +34,7 @@ export default class ConferenceNewPage extends Component {
 
   render() {
     return (
-      <View>
+      <View style={{backgroundColor: '#fff'}}>
         <StatusBar />
         <NavBar2
           leftNav={<IconButton
@@ -57,7 +57,7 @@ export default class ConferenceNewPage extends Component {
           }
         />
 
-        <View style={{paddingTop: 8}} />
+        <View style={theme.headerPadding} />
 
         <ScrollView>
 

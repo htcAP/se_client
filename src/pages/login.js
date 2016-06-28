@@ -55,7 +55,7 @@ export default class LoginPage extends Component {
   render() {
 
     return (
-        <View style={[styles.wrapper]}>
+        <View style={[styles.wrapper, theme.page]}>
           <StatusBar />
           <View style={[theme.cardStyle, styles.container]}>
             <View style={styles.header}>
@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     justifyContent: 'center',
+    backgroundColor: '#fff',
   },
 
   content: {

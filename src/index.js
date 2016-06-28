@@ -23,6 +23,7 @@ export default class ConferenceApp extends Component {
 
         <Scene key="login"
           component={LoginPage}
+          initial={true}
           getSceneStyle={NavigationCardStackStyleInterpolator.forVertical}
         />
 
@@ -43,7 +44,6 @@ export default class ConferenceApp extends Component {
 
         <Scene key="conferenceChoose"
           component={ConferenceChoosePage}
-          initial={true}
           getSceneStyle={NavigationCardStackStyleInterpolator.forVertical}
         />
 
