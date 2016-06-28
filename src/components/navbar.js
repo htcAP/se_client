@@ -19,6 +19,9 @@ export default class NavBar extends Component {
             { this.props.title }
           </Text>
         </View>
+        <View style={styles.rightNav}>
+          { this.props.rightNav }
+        </View>
       </View>
     );
   }
@@ -38,6 +41,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     left: 0,
+  },
+
+  rightNav: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
   },
 
   title: {

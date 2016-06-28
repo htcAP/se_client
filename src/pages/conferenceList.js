@@ -58,8 +58,7 @@ class ConferenceListPage extends Component {
       <View style={theme.container}>
         <View style={styles.titleBar}>
           <View style={styles.avatarContainer}>
-            <Image
-              style={styles.avatar}
+            <Image style={styles.avatar}
               source={require('../res/avatar.jpg')}
             />
           </View>
@@ -78,7 +77,7 @@ class ConferenceListPage extends Component {
           <View style={styles.drawerItem}>
             <Icon
               name="exit-to-app"
-              color={theme.lightSecondaryTextColor}
+              color={theme.secondaryTextColor}
               size={24}
               style={styles.drawerIcon}
             />
@@ -189,7 +188,7 @@ const styles = StyleSheet.create({
 
   titleText: {
     fontSize: 14,
-    color: theme.secondaryTextColor,
+    color: theme.primaryTextColor,
   },
 
   avatar: {
@@ -222,7 +221,7 @@ const styles = StyleSheet.create({
     marginLeft: 72,
     fontSize: 14,
     fontFamily: 'sans-serif-medium',
-    color: theme.lightSecondaryTextColor,
+    color: theme.secondaryTextColor,
   },
 
   conferItem: {

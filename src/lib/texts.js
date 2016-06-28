@@ -20,6 +20,15 @@ let texts = {
   ConferenceContent:
   '会议内容',
 
+  MustAttend:
+  '必须参会',
+
+  SuggestAttend:
+  '建议参会',
+
+  SelectAttendance:
+  '选择参会人员',
+
 };
 
 export default texts;

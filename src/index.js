@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import {
-  StatusBar,
-} from 'react-native';
-import {
   Actions,
   Scene,
   Router,
@@ -13,6 +10,7 @@ import NavigationCardStackStyleInterpolator from 'NavigationCardStackStyleInterp
 import LoginPage from './pages/login';
 import ConferenceListPage from './pages/conferenceList';
 import ConferenceNewPage from './pages/conferenceNew';
+import SelectAttendancePage from './pages/selectAttendance';
 
 export default class ConferenceApp extends Component {
 
@@ -34,6 +32,11 @@ export default class ConferenceApp extends Component {
 
         <Scene key="conferenceNew"
           component={ConferenceNewPage}
+          getSceneStyle={NavigationCardStackStyleInterpolator.forVertical}
+        />
+
+        <Scene key="selectAttendance"
+          component={SelectAttendancePage}
           initial={true}
           getSceneStyle={NavigationCardStackStyleInterpolator.forVertical}
         />

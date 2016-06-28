@@ -49,7 +49,7 @@ setTheme({
   primaryTextColor: '#FFF',
   lightPrimaryTextColor: 'rgba(255,255,255,.67)',
   secondaryColor: MKColor.Indigo,
-  secondaryTextColor: '#FFF',
+  secondaryTextColor: '#000',
   statusBarColor: 'rgba(0,0,0,0.48)',
 
   lightSecondaryTextColor: 'rgba(0,0,0,0.34)',

@@ -73,42 +73,69 @@ export default class ConferenceNewPage extends Component {
         </View>
 
         <View style={theme.conferDetailItermContainer}>
-        <View style={[theme.conferDetailIterm]}>
-          <Icon style={theme.conferDetailIcon}
-            name="query-builder"
-            size={24}
-          />
-          <View style={theme.conferDetailContent}>
-            <Text style={theme.conferDetailContentText}>
-              2016 June 1st
-            </Text>
-            <Text style={theme.conferDetailContentText}>
-              9:30 AM
+          <View style={[theme.conferDetailIterm]}>
+            <Icon style={theme.conferDetailIcon}
+              name="query-builder"
+              size={24}
+            />
+            <View style={theme.conferDetailContent}>
+              <Text style={theme.conferDetailContentText}>
+                2016 June 1st
+              </Text>
+              <Text style={theme.conferDetailContentText}>
+                9:30 AM
+              </Text>
+            </View>
+          </View>
+
+          <View style={[theme.conferDetailIterm]}>
+            <View style={theme.conferDetailIcon} />
+            <View style={theme.conferDetailContent}>
+              <Text style={theme.conferDetailContentText}>
+                2016 June 1st
+              </Text>
+              <Text style={theme.conferDetailContentText}>
+                10:30 AM
+              </Text>
+            </View>
+          </View>
+
+          <View style={[theme.conferDetailIterm]}>
+            <View style={theme.conferDetailIcon} />
+            <Text style={[theme.conferDetailContent, theme.conferDetailContentText]}>
+              30 Minutes
             </Text>
           </View>
         </View>
 
-        <View style={[theme.conferDetailIterm]}>
-          <View style={theme.conferDetailIcon} />
-          <View style={theme.conferDetailContent}>
-            <Text style={theme.conferDetailContentText}>
-              2016 June 1st
-            </Text>
-            <Text style={theme.conferDetailContentText}>
-              10:30 AM
-            </Text>
+        <View style={theme.conferDetailItermContainer}>
+          <View style={[theme.conferDetailIterm]}>
+            <Icon style={theme.conferDetailIcon}
+              name="people"
+              size={24}
+            />
+            <View style={theme.conferDetailContent}>
+              <Text style={theme.conferDetailContentText}>
+                htc, tzy
+              </Text>
+              <Text style={theme.conferDetailContentText}>
+                { texts.MustAttend }
+              </Text>
+            </View>
+          </View>
+
+          <View style={[theme.conferDetailIterm]}>
+            <View style={theme.conferDetailIcon} />
+            <View style={theme.conferDetailContent}>
+              <Text style={theme.conferDetailContentText}>
+                htc, tzy
+              </Text>
+              <Text style={theme.conferDetailContentText}>
+                { texts.SuggestAttend }
+              </Text>
+            </View>
           </View>
         </View>
-
-        <View style={[theme.conferDetailIterm]}>
-          <View style={theme.conferDetailIcon} />
-          <Text style={[theme.conferDetailContent, theme.conferDetailContentText]}>
-            30 Minutes
-          </Text>
-        </View>
-
-        </View>
-
 
         </ScrollView>
 
