@@ -25,13 +25,14 @@ export default class SelectAttendancePage extends Component {
   }
 
   submit = () => {
+    Actions.pop();
   }
 
   render() {
     return (
       <View>
         <StatusBar />
-        <NavBar
+        <NavBar title={texts.SelectAttendance}
           leftNav={ <IconButton
             iconName="clear"
             onTouch={this.cancelOperation}
@@ -40,7 +41,6 @@ export default class SelectAttendancePage extends Component {
             iconName="done"
             onTouch={this.submit}
           />}
-          title={texts.SelectAttendance}
         />
         <ScrollView>
           <View style={{paddingTop: 8}} />

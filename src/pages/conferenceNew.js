@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TextInput,
   ScrollView,
+  TouchableNativeFeedback,
 } from 'react-native';
 import {
   Actions,
@@ -25,6 +26,10 @@ export default class ConferenceNewPage extends Component {
   };
 
   submitNewConference = () => {
+  }
+
+  selectAttendance = () => {
+    Actions.selectAttendance();
   }
 
   render() {
@@ -109,6 +114,9 @@ export default class ConferenceNewPage extends Component {
         </View>
 
         <View style={theme.conferDetailItermContainer}>
+          <TouchableNativeFeedback delayPressIn={20}
+            onPress={this.selectAttendance}
+          >
           <View style={[theme.conferDetailIterm]}>
             <Icon style={theme.conferDetailIcon}
               name="people"
@@ -123,7 +131,11 @@ export default class ConferenceNewPage extends Component {
               </Text>
             </View>
           </View>
+          </TouchableNativeFeedback>
 
+          <TouchableNativeFeedback delayPressIn={20}
+            onPress={this.selectAttendance}
+          >
           <View style={[theme.conferDetailIterm]}>
             <View style={theme.conferDetailIcon} />
             <View style={theme.conferDetailContent}>
@@ -135,6 +147,7 @@ export default class ConferenceNewPage extends Component {
               </Text>
             </View>
           </View>
+          </TouchableNativeFeedback>
         </View>
 
         </ScrollView>

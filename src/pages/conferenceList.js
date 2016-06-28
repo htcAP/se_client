@@ -93,6 +93,7 @@ class ConferenceListPage extends Component {
 
   ActionButton = MKButton.coloredFab()
     .withStyle(styles.actionButton)
+    .withBackgroundColor(theme.secondaryColor)
     .withOnPress(this.goNewConference)
     .build();
 

@@ -29,6 +29,13 @@ let texts = {
   SelectAttendance:
   '选择参会人员',
 
+  ChooseConference:
+  '确认会议方案',
+
+  Arrangement:
+  '方案',
+
+
 };
 
 export default texts;

@@ -23,8 +23,20 @@ setTheme({
     borderColor: 'rgba(0,0,0,.12)',
   },
 
+  conferDenseDetailItermContainer: {
+    paddingTop: 4,
+    paddingBottom: 4,
+    paddingRight: 16,
+  },
+
   conferDetailIterm: {
     height: 48,
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+
+  conferDenseDetailIterm: {
+    height: 36,
     alignItems: 'center',
     flexDirection: 'row',
   },
@@ -45,10 +57,10 @@ setTheme({
   },
 
   white: '#FFF',
-  primaryColor: MKColor.Cyan,
+  primaryColor: '#00BCD4',
   primaryTextColor: '#FFF',
   lightPrimaryTextColor: 'rgba(255,255,255,.67)',
-  secondaryColor: MKColor.Indigo,
+  secondaryColor: '#FFC107',
   secondaryTextColor: '#000',
   statusBarColor: 'rgba(0,0,0,0.48)',
 

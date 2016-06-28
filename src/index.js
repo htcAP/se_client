@@ -11,6 +11,7 @@ import LoginPage from './pages/login';
 import ConferenceListPage from './pages/conferenceList';
 import ConferenceNewPage from './pages/conferenceNew';
 import SelectAttendancePage from './pages/selectAttendance';
+import ConferenceChoosePage from './pages/conferenceChoose';
 
 export default class ConferenceApp extends Component {
 
@@ -37,6 +38,11 @@ export default class ConferenceApp extends Component {
 
         <Scene key="selectAttendance"
           component={SelectAttendancePage}
+          getSceneStyle={NavigationCardStackStyleInterpolator.forVertical}
+        />
+
+        <Scene key="conferenceChoose"
+          component={ConferenceChoosePage}
           initial={true}
           getSceneStyle={NavigationCardStackStyleInterpolator.forVertical}
         />
