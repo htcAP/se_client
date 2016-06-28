@@ -6,10 +6,17 @@ import {
   StyleSheet,
   Image,
   TouchableNativeFeedback,
+  ScrollView,
+  RefreshControl,
 } from 'react-native';
+import {
+  MKButton
+} from 'react-native-material-kit';
+import {
+  Actions
+} from 'react-native-router-flux';
 
-import Ripple from 'react-native-material-kit/lib/mdl/Ripple';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import NavBar from '../components/navbar';
 import IconButton from '../components/iconButton';
@@ -19,8 +26,30 @@ import texts from '../lib/texts';
 
 class ConferenceListPage extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      isRefreshing: false,
+      loaded: 0,
+    };
+  }
+
   openDrawer = () => {
     this._drawer.openDrawer();
+  }
+
+  goNewConference = () => {
+    Actions.conferenceNew();
+  }
+
+  onRefresh = () => {
+    this.setState({isRefreshing: true});
+    setTimeout(() => {
+      this.setState({
+        loaded: this.state.loaded + 10,
+        isRefreshing: false,
+      });
+    }, 2000);
   }
 
   renderDrawer = () => {
@@ -44,11 +73,11 @@ class ConferenceListPage extends Component {
           </View>
         </View>
 
-        <View>
-          <TouchableNativeFeedback>
+        <View style={styles.drawerContainer}>
+          <TouchableNativeFeedback delayPressIn={20}>
           <View style={styles.drawerItem}>
             <Icon
-              name="md-exit"
+              name="exit-to-app"
               color={theme.lightSecondaryTextColor}
               size={24}
               style={styles.drawerIcon}
@@ -63,6 +92,11 @@ class ConferenceListPage extends Component {
     );
   }
 
+  ActionButton = MKButton.coloredFab()
+    .withStyle(styles.actionButton)
+    .withOnPress(this.goNewConference)
+    .build();
+
   render() {
 
     return (
@@ -76,13 +110,67 @@ class ConferenceListPage extends Component {
 
           <NavBar
             leftNav={<IconButton
-              iconName="md-menu"
+              iconName="menu"
               onTouch={this.openDrawer}
             />}
+            title={texts.ConferenceManagementSystem}
           />
-          <Text>
-            =.=
-          </Text>
+
+          <ScrollView
+            refreshControl={ <RefreshControl
+              refreshing={this.state.isRefreshing}
+              onRefresh={this.onRefresh}
+              colors={[theme.primaryColor, theme.secondaryColor]}
+            />}
+          >
+            <View style={{paddingTop: 8}}/>
+
+            <TouchableNativeFeedback delayPressIn={20}>
+            <View style={styles.conferItem}>
+              <View style={styles.conferInfoContainer}>
+                <Text style={styles.conferTitle} numberOfLines={1}>
+                  Daily Scrum Discussion
+                </Text>
+                <Text style={styles.conferTime} numberOfLines={1}>
+                  Tomorrow 9:15 AM
+                </Text>
+                <Text style={styles.conferPlace} numberOfLines={1}>
+                  10F open space
+                </Text>
+              </View>
+              <Icon
+                style={styles.conferIcon}
+                name="priority-high"
+                color={theme.alertColor}
+                size={20}
+              />
+            </View>
+            </TouchableNativeFeedback>
+
+            <TouchableNativeFeedback delayPressIn={20}>
+            <View style={styles.conferItem}>
+              <View style={styles.conferInfoContainer}>
+                <Text style={styles.conferTitle} numberOfLines={1}>
+                  Daily Scrum Discussion
+                </Text>
+                <Text style={styles.conferTime} numberOfLines={1}>
+                  Tomorrow 9:15 AM
+                </Text>
+                <Text style={styles.conferPlace} numberOfLines={1}>
+                  10F open space and long text aaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbb
+                </Text>
+              </View>
+            </View>
+            </TouchableNativeFeedback>
+
+          </ScrollView>
+          <this.ActionButton>
+            <Icon
+              name="add"
+              size={24}
+              color={theme.primaryTextColor}
+            />
+          </this.ActionButton>
         </DrawerLayoutAndroid>
     );
   }
@@ -115,6 +203,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
+  drawerContainer: {
+    paddingTop: 8,
+  },
+
   drawerItem: {
     height: 48,
     justifyContent: 'center',
@@ -131,5 +223,45 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'sans-serif-medium',
     color: theme.lightSecondaryTextColor,
-  }
+  },
+
+  conferItem: {
+    height: 88,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.dividerColor,
+    justifyContent: 'center',
+  },
+
+  conferInfoContainer: {
+    marginLeft: 16,
+    marginRight: 16,
+  },
+
+  conferTitle: {
+    fontSize: 16,
+    fontFamily: 'sans-serif-medium',
+  },
+
+  conferTime: {
+    fontSize: 16,
+  },
+
+  conferPlace: {
+    fontSize: 16,
+  },
+
+  conferIcon: {
+    position: 'absolute',
+    right: 16,
+    top: 16,
+  },
+
+  actionButton: {
+    position: 'absolute',
+    right: 24,
+    bottom: 24,
+    width: 56,
+    height: 56,
+  },
+
 });

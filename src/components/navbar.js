@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   View,
+  Text,
   StyleSheet,
 } from 'react-native';
 import theme from '../lib/theme';
@@ -12,6 +13,11 @@ export default class NavBar extends Component {
       <View style={styles.container}>
         <View style={styles.leftNav}>
           { this.props.leftNav }
+        </View>
+        <View style={styles.title}>
+          <Text style={styles.titleText}>
+            { this.props.title }
+          </Text>
         </View>
       </View>
     );
@@ -25,9 +31,22 @@ const styles = StyleSheet.create({
     height: 56 + 24,
     elevation: 4,
     backgroundColor: theme.primaryColor,
+    justifyContent: 'center',
   },
 
   leftNav: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+  },
 
+  title: {
+    marginLeft: 72,
+  },
+
+  titleText: {
+    color: theme.primaryTextColor,
+    fontFamily: 'sans-serf-medium',
+    fontSize: 16,
   },
 });

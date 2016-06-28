@@ -18,11 +18,15 @@ setTheme({
   white: '#FFF',
   primaryColor: MKColor.Cyan,
   primaryTextColor: '#FFF',
+  lightPrimaryTextColor: 'rgba(255,255,255,.67)',
   secondaryColor: MKColor.Indigo,
   secondaryTextColor: '#FFF',
-  statusBarColor: 'rgba(0,0,0,0.54)',
+  statusBarColor: 'rgba(0,0,0,0.48)',
 
   lightSecondaryTextColor: 'rgba(0,0,0,0.87)',
+  dividerColor: 'rgba(0,0,0,.12)',
+
+  alertColor: '#f44336',
 });
 
 let theme = getTheme();

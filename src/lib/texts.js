@@ -13,6 +13,10 @@ let texts = {
 
   Logout:
   '退出登录',
+
+  InputConferenceName:
+  '输入会议名称...',
+
 };
 
 export default texts;

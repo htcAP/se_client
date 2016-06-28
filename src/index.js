@@ -12,6 +12,7 @@ import NavigationCardStackStyleInterpolator from 'NavigationCardStackStyleInterp
 
 import LoginPage from './pages/login';
 import ConferenceListPage from './pages/conferenceList';
+import ConferenceNewPage from './pages/conferenceNew';
 
 export default class ConferenceApp extends Component {
 
@@ -29,6 +30,11 @@ export default class ConferenceApp extends Component {
         <Scene key="conferenceList"
           component={ConferenceListPage}
           initial={true}
+          getSceneStyle={NavigationCardStackStyleInterpolator.forVertical}
+        />
+
+        <Scene key="conferenceNew"
+          component={ConferenceNewPage}
           getSceneStyle={NavigationCardStackStyleInterpolator.forVertical}
         />
 

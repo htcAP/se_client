@@ -21,7 +21,7 @@ import StatusBar from '../components/statusbar';
 
 export default class LoginPage extends Component {
 
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       visibleHeight: Dimensions.get('window').height
