@@ -42,7 +42,7 @@ let texts = {
   '必须参会人员',
 
   Attendance:
-  '其他参会人员',
+  '建议参会人员',
 
   ServerError:
   '服务器错误...',
@@ -70,7 +70,7 @@ let texts = {
 
   PM:
   '下午',
-  
+
 };
 
 export default texts;

@@ -15,7 +15,7 @@ export function login(username, password) {
       username, password
 
     }).then(result => {
-        dispatch(loginSuccess(username));
+        dispatch(loginSuccess(result.uid, username));
 
     }).catch(e => {
       dispatch(loginFailed(e));
@@ -38,9 +38,9 @@ export function loginFailed(reason) {
   };
 }
 
-export function loginSuccess(username) {
+export function loginSuccess(uid, username) {
   return {
     type: session.LOGIN_SUCCESS,
-    username,
+    uid, username,
   };
 }

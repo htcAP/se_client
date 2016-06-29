@@ -26,16 +26,15 @@ import IconButton from '../components/iconButton';
 import StatusBar from '../components/statusbar';
 import theme from '../lib/theme';
 import texts from '../lib/texts';
+import {
+  toastError,
+  describeDate,
+  describeTime,
+} from '../lib/utils';
+
+import { actions } from '../reducers';
 
 class ConferenceListPage extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      isRefreshing: false,
-      loaded: 0,
-    };
-  }
 
   openDrawer = () => {
     this._drawer.openDrawer();
@@ -45,8 +44,11 @@ class ConferenceListPage extends Component {
     Actions.conferenceNew();
   }
 
-  viewConference = () => {
-    Actions.conferenceView();
+  viewConference = (mid) => {
+    Actions.conferenceView({
+      mid,
+      title: texts.ConferenceManagementSystem,
+    });
   }
 
   logout = () => {
@@ -56,13 +58,13 @@ class ConferenceListPage extends Component {
   }
 
   onRefresh = () => {
-    this.setState({isRefreshing: true});
-    setTimeout(() => {
-      this.setState({
-        loaded: this.state.loaded + 10,
-        isRefreshing: false,
-      });
-    }, 2000);
+    if (this.props.meeting.listFetching) {
+      return;
+    }
+
+    const { dispatch } = this.props;
+    dispatch(actions.meetingFetchList())
+    .catch(toastError);
   }
 
   renderDrawer = () => {
@@ -114,6 +116,45 @@ class ConferenceListPage extends Component {
 
   render() {
 
+    let meetingList = Object.keys(this.props.meeting.items)
+    .map(mid => this.props.meeting.items[mid]);
+    meetingList.sort((m0, m1) => m1.start_time.getTime() - m0.start_time.getTime());
+    meetingList = meetingList.map(m => {
+
+      return (
+        <TouchableNativeFeedback delayPressIn={20}
+          onPress={() => this.viewConference(m.mid)}
+          key={m.mid}
+        >
+        <View style={styles.conferItem}>
+          <View style={styles.conferInfoContainer}>
+            <Text style={styles.conferTitle} numberOfLines={1}>
+              { m.title }
+            </Text>
+            <Text style={styles.conferTime} numberOfLines={1}>
+              { describeDate(m.start_time) + '     ' + describeTime(m.start_time) }
+            </Text>
+            <Text style={styles.conferPlace} numberOfLines={1}>
+              { m.room.name }
+            </Text>
+          </View>
+          <Icon
+            style={styles.conferIcon}
+            name="priority-high"
+            color={theme.alertColor}
+            size={20}
+          />
+        </View>
+        </TouchableNativeFeedback>
+      );
+    });
+
+    if (meetingList.length) {
+      meetingList.unshift(
+        <View key={-1} style={theme.headerPadding} />
+      );
+    }
+
     return (
         <DrawerLayoutAndroid
           ref={(c) => this._drawer = c}
@@ -132,55 +173,14 @@ class ConferenceListPage extends Component {
 
           <ScrollView
             refreshControl={ <RefreshControl
-              refreshing={this.state.isRefreshing}
+              refreshing={this.props.meeting.listFetching}
               onRefresh={this.onRefresh}
               colors={[theme.primaryColor, theme.secondaryColor]}
             />}
             style={[theme.page, theme.container]}
           >
-            <View style={theme.headerPadding} />
 
-            <TouchableNativeFeedback delayPressIn={20}
-              onPress={this.viewConference}
-            >
-            <View style={styles.conferItem}>
-              <View style={styles.conferInfoContainer}>
-                <Text style={styles.conferTitle} numberOfLines={1}>
-                  Daily Scrum Discussion
-                </Text>
-                <Text style={styles.conferTime} numberOfLines={1}>
-                  Tomorrow 9:15 AM
-                </Text>
-                <Text style={styles.conferPlace} numberOfLines={1}>
-                  10F open space
-                </Text>
-              </View>
-              <Icon
-                style={styles.conferIcon}
-                name="priority-high"
-                color={theme.alertColor}
-                size={20}
-              />
-            </View>
-            </TouchableNativeFeedback>
-
-            <TouchableNativeFeedback delayPressIn={20}
-              onPress={this.viewConference}
-            >
-            <View style={styles.conferItem}>
-              <View style={styles.conferInfoContainer}>
-                <Text style={styles.conferTitle} numberOfLines={1}>
-                  Daily Scrum Discussion
-                </Text>
-                <Text style={styles.conferTime} numberOfLines={1}>
-                  Tomorrow 9:15 AM
-                </Text>
-                <Text style={styles.conferPlace} numberOfLines={1}>
-                  10F open space and long text aaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbb
-                </Text>
-              </View>
-            </View>
-            </TouchableNativeFeedback>
+            { meetingList }
 
           </ScrollView>
           <this.ActionButton>
@@ -196,7 +196,7 @@ class ConferenceListPage extends Component {
 }
 
 export default connect(
-  ({ session }) => ({session})
+  ({ session, meeting }) => ({ session, meeting })
 )(ConferenceListPage);
 
 const styles = StyleSheet.create({

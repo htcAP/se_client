@@ -1,3 +1,6 @@
+import {
+  ToastAndroid,
+} from 'react-native';
 import texts from './texts';
 
 export function genActionConstants(prefix, actions) {
@@ -11,13 +14,13 @@ export function genActionConstants(prefix, actions) {
 }
 
 function norm(ch, x) {
-  return x < 10 ? ch + x : x;
+  return (x < 10) ? (ch + x) : (x);
 }
 
 export function describeDate(t) {
   const y = t.getFullYear();
-  const m = norm(' ', t.getMonth() + 1);
-  const d = norm(' ', t.getDate());
+  const m = norm('0', t.getMonth() + 1);
+  const d = norm('0', t.getDate());
 
   return y + ' ' + texts.Year + ' ' + m + ' ' + texts.Month + ' ' + d + ' ' + texts.Day;
 }
@@ -44,4 +47,29 @@ export function describeDuration(t) {
   }
 
   return m + ' ' + texts.Minute;
+}
+
+export function toastError(reason) {
+  ToastAndroid.show(reason.message, ToastAndroid.SHORT);
+}
+
+export function describeUserList(ul) {
+  if (ul.length <= 3) {
+    let ret = '';
+    ul.forEach((u, idx) => {
+      if (idx > 1) {
+        ret += ',';
+      }
+      ret += u.username;
+    });
+    ret += ' (' + ul.length + ')';
+    return ret;
+  }
+
+  let ret = ul[0].username + ',';
+  ret += ul[1].username + ',';
+  ret += ul[2].username + ',';
+  ret += '... (' + ul.length + ')';
+
+  return ret;
 }

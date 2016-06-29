@@ -5,8 +5,9 @@ export const initialState = {
     loggedIn: false,
     loggingIn: false,
     loginFailed: false,
-    failedReason: '',
+    failedReason: {},
     username: '',
+    uid: -1,
   },
 };
 
@@ -24,6 +25,7 @@ export function reducer(state = initialState.session, action) {
       loggedIn: true,
       loggingIn: false,
       loginFailed: false,
+      uid: action.uid,
       username: action.username,
     };
 

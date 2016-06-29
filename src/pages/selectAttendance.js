@@ -16,7 +16,6 @@ import {
 import NavBar from '../components/navbar';
 import IconButton from '../components/iconButton';
 import StatusBar from '../components/statusbar';
-import texts from '../lib/texts';
 import theme from '../lib/theme';
 
 export default class SelectAttendancePage extends Component {

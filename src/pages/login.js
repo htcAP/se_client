@@ -19,6 +19,7 @@ import {
 
 import theme from '../lib/theme';
 import texts from '../lib/texts';
+import { toastError } from '../lib/utils';
 import StatusBar from '../components/statusbar';
 
 import { actions } from '../reducers';
@@ -44,6 +45,8 @@ class LoginPage extends Component {
 
     )).then(() => {
       Actions.conferenceList({ type: 'reset' });
+      dispatch(actions.meetingFetchList())
+      .catch(toastError);
 
     }).catch(reason => {
       ToastAndroid.show(reason.message, ToastAndroid.SHORT);

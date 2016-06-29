@@ -6,14 +6,17 @@ const urlbase = 'http://bus.fdu13ss.org:10010/api';
 export default {
 
   request(method, path, obj) {
-    return fetch(urlbase + path, {
+    let config = {
       method,
-      body: JSON.stringify(obj),
       headers: {
         'Content-Type': 'application/json',
       },
+    };
+    if (obj) {
+      config.body = JSON.stringify(obj);
+    }
 
-    }).catch(e => {
+    return fetch(urlbase + path, config).catch(e => {
       console.log(e);
       throw {
         code: 500,
@@ -46,8 +49,8 @@ export default {
     });
   },
 
-  get(path, obj) {
-    return this.request('GET', path, obj);
+  get(path) {
+    return this.request('GET', path, null);
   },
 
   post(path, obj) {
