@@ -14,11 +14,11 @@ export default {
       },
 
     }).catch(e => {
-        console.log(e);
-        throw {
-          code: 500,
-          message: texts.ServerError,
-        };
+      console.log(e);
+      throw {
+        code: 500,
+        message: texts.ServerError,
+      };
 
     }).then(rsp => {
       return rsp.text().then(body => {

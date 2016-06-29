@@ -54,11 +54,15 @@ setTheme({
   conferDetailContent: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
   },
 
   conferDetailContentText: {
     fontSize: 16,
+  },
+
+  conferDetailContentTextContainer: {
+    height: 48,
+    justifyContent: 'center',
   },
 
   headerPadding: {

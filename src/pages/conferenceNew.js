@@ -6,6 +6,8 @@ import {
   TextInput,
   ScrollView,
   TouchableNativeFeedback,
+  DatePickerAndroid,
+  TimePickerAndroid,
 } from 'react-native';
 import {
   Actions,
@@ -63,8 +65,48 @@ export default class ConferenceNewPage extends Component {
     });
   }
 
+  setDate = (name) => {
+    const date = this.state[name];
+
+    DatePickerAndroid.open({
+      date
+
+    }).then(({action, year, month, day}) => {
+      if (action !== DatePickerAndroid.dateSetAction) {
+        return;
+      }
+      date.setYear(year);
+      date.setMonth(month);
+      date.setDate(day);
+
+      this.setState({
+        [name]: date,
+      });
+    });
+  }
+
+  setTime = (name) => {
+    const date = this.state[name];
+    console.log(date);
+
+    TimePickerAndroid.open({
+      hour: date.getHours(),
+      minute: date.getMinutes(),
+
+    }).then(({action, hour, minute}) => {
+      if (action !== TimePickerAndroid.timeSetAction) {
+        return;
+      }
+      date.setHours(hour);
+      date.setMinutes(minute);
+
+      this.setState({
+        [name]: date
+      });
+    });
+  }
+
   render() {
-    console.log(this.state);
 
     return (
       <View style={{backgroundColor: '#fff'}}>
@@ -117,24 +159,49 @@ export default class ConferenceNewPage extends Component {
               size={24}
             />
             <View style={theme.conferDetailContent}>
-              <Text style={theme.conferDetailContentText}>
-                { describeDate(this.state.startAfter) }
-              </Text>
-              <Text style={theme.conferDetailContentText}>
-                { describeTime(this.state.startAfter) }
-              </Text>
+              <TouchableNativeFeedback delayPressIn={20}
+                onPress={ () => this.setDate('startAfter') }
+              >
+              <View style={[theme.conferDetailContentTextContainer, {flex: 1}]}>
+                <Text style={theme.conferDetailContentText}>
+                  { describeDate(this.state.startAfter) }
+                </Text>
+              </View>
+              </TouchableNativeFeedback>
+
+              <TouchableNativeFeedback delayPressIn={20}
+                onPress={ () => this.setTime('startAfter') }
+              >
+              <View style={theme.conferDetailContentTextContainer}>
+                <Text style={theme.conferDetailContentText}>
+                  { describeTime(this.state.startAfter) }
+                </Text>
+              </View>
+              </TouchableNativeFeedback>
             </View>
           </View>
 
           <View style={[theme.conferDetailIterm]}>
             <View style={theme.conferDetailIcon} />
             <View style={theme.conferDetailContent}>
+              <TouchableNativeFeedback delayPressIn={20}
+                onPress={ () => this.setDate('endBefore') }
+              >
+              <View style={[theme.conferDetailContentTextContainer, {flex: 1}]}>
               <Text style={theme.conferDetailContentText}>
                 { describeDate(this.state.endBefore) }
               </Text>
+              </View></TouchableNativeFeedback>
+
+              <TouchableNativeFeedback delayPressIn={20}
+                onPress={ () => this.setTime('endBefore') }
+              >
+              <View style={theme.conferDetailContentTextContainer}>
               <Text style={theme.conferDetailContentText}>
                 { describeTime(this.state.endBefore) }
               </Text>
+              </View>
+              </TouchableNativeFeedback>
             </View>
           </View>
 

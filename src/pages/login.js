@@ -4,6 +4,7 @@ import {
   Text,
   StyleSheet,
   ToastAndroid,
+  ActivityIndicator,
 } from 'react-native';
 import {
   MKTextField,
@@ -12,6 +13,9 @@ import {
 import {
   Actions,
 } from 'react-native-router-flux';
+import {
+  connect
+} from 'react-redux';
 
 import theme from '../lib/theme';
 import texts from '../lib/texts';
@@ -20,9 +24,13 @@ import StatusBar from '../components/statusbar';
 import { actions } from '../reducers';
 
 
-export default class LoginPage extends Component {
+class LoginPage extends Component {
 
   doLogin = () => {
+    if (this.props.session.loggingIn) {
+      return;
+    }
+
     const { dispatch } = this.props;
 
     this._usernameInput.blur();
@@ -41,7 +49,6 @@ export default class LoginPage extends Component {
       ToastAndroid.show(reason.message, ToastAndroid.SHORT);
     });
   }
-
 
   UsernameInput = MKTextField.textfield()
     .withPlaceholder(texts.Username)
@@ -76,10 +83,14 @@ export default class LoginPage extends Component {
               {texts.ConferenceManagementSystem}
             </Text>
           </View>
+
           <View style={styles.wrapper}>
           <View style={styles.content}>
             <this.UsernameInput ref={(c) => {this._usernameInput = c;}} />
             <this.PasswordInput ref={(c) => {this._passwordInput = c;}} />
+            <ActivityIndicator
+              animating={this.props.session.loggingIn}
+            />
             <this.LoginButton ref={(c) => {this._loginButton = c;}} />
           </View>
           </View>
@@ -88,6 +99,11 @@ export default class LoginPage extends Component {
     );
   }
 }
+
+export default connect(
+  (({session}) => ({session}))
+)(LoginPage);
+
 
 const styles = StyleSheet.create({
   container: {
