@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
-import routerReducer from './routerReducer';
 import * as sessionActions from './session/sessionActions';
-import sessionReducer from './session/sessionReducer';
+import * as router from './routerReducer';
+import * as session from './session/sessionReducer';
 
 export const rootReducer = combineReducers({
-  routerReducer,
-  sessionReducer,
+  router: router.reducer,
+  session: session.reducer,
 });
 
 export const actions = {
@@ -14,7 +14,8 @@ export const actions = {
 
 export function getInitialState() {
   const state = {
-    ...sessionReducer.initialState,
+    ...session.initialState,
+    ...router.initialState,
   };
   return state;
 }

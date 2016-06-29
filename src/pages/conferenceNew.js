@@ -29,8 +29,16 @@ export default class ConferenceNewPage extends Component {
     Actions.conferenceChoose();
   }
 
+  selectImportantAttendance = () => {
+    Actions.selectAttendance({
+      title: texts.SelectImportantAttendance
+    });
+  }
+
   selectAttendance = () => {
-    Actions.selectAttendance();
+    Actions.selectAttendance({
+      title: texts.SelectAttendance
+    });
   }
 
   render() {
@@ -116,7 +124,7 @@ export default class ConferenceNewPage extends Component {
 
         <View style={theme.conferDetailItermContainer}>
           <TouchableNativeFeedback delayPressIn={20}
-            onPress={this.selectAttendance}
+            onPress={this.selectImportantAttendance}
           >
           <View style={[theme.conferDetailIterm]}>
             <Icon style={theme.conferDetailIcon}

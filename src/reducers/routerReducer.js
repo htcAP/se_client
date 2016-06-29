@@ -1,8 +1,8 @@
-const initialState = {
-  scene: {},
+export const initialState = {
+  router: {},
 };
 
-export default function reducer(state = initialState, action = {}) {
+export function reducer(state = initialState, action = {}) {
 
   switch (action.type) {
     case 'focus':

@@ -3,6 +3,7 @@ import {
   View,
   Text,
   StyleSheet,
+  ToastAndroid,
 } from 'react-native';
 import {
   MKTextField,
@@ -16,15 +17,29 @@ import theme from '../lib/theme';
 import texts from '../lib/texts';
 import StatusBar from '../components/statusbar';
 
+import { actions } from '../reducers';
+
 
 export default class LoginPage extends Component {
 
   doLogin = () => {
+    const { dispatch } = this.props;
+
     this._usernameInput.blur();
     this._passwordInput.blur();
-    setTimeout(() => {
-      Actions.conferenceList();
-    }, 500);
+    const username = this._usernameInput.bufferedValue;
+    const password = this._passwordInput.bufferedValue;
+
+    dispatch(actions.login(
+      'htc', '3.14159'
+      // username, password
+
+    )).then(() => {
+      Actions.conferenceList({ type: 'reset' });
+
+    }).catch(reason => {
+      ToastAndroid.show(reason.message, ToastAndroid.SHORT);
+    });
   }
 
 
@@ -53,23 +68,23 @@ export default class LoginPage extends Component {
   render() {
 
     return (
-        <View style={[styles.wrapper, theme.page]}>
-          <StatusBar />
-          <View style={[theme.cardStyle, styles.container]}>
-            <View style={styles.header}>
-              <Text style={styles.headerText}>
-                {texts.ConferenceManagementSystem}
-              </Text>
-            </View>
-            <View style={styles.wrapper}>
-            <View style={styles.content}>
-              <this.UsernameInput ref={(c) => {this._usernameInput = c;}} />
-              <this.PasswordInput ref={(c) => {this._passwordInput = c;}} />
-              <this.LoginButton ref={(c) => {this._loginButton = c;}} />
-            </View>
-            </View>
-        </View>
-        </View>
+      <View style={[styles.wrapper, theme.page]}>
+        <StatusBar />
+        <View style={[theme.cardStyle, styles.container]}>
+          <View style={styles.header}>
+            <Text style={styles.headerText}>
+              {texts.ConferenceManagementSystem}
+            </Text>
+          </View>
+          <View style={styles.wrapper}>
+          <View style={styles.content}>
+            <this.UsernameInput ref={(c) => {this._usernameInput = c;}} />
+            <this.PasswordInput ref={(c) => {this._passwordInput = c;}} />
+            <this.LoginButton ref={(c) => {this._loginButton = c;}} />
+          </View>
+          </View>
+      </View>
+      </View>
     );
   }
 }

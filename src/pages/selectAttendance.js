@@ -30,10 +30,12 @@ export default class SelectAttendancePage extends Component {
   }
 
   render() {
+    console.log(this.props);
+
     return (
       <View>
         <StatusBar />
-        <NavBar title={texts.SelectAttendance}
+        <NavBar
           leftNav={ <IconButton
             iconName="clear"
             onTouch={this.cancelOperation}

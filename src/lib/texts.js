@@ -26,8 +26,11 @@ let texts = {
   SuggestAttend:
   '建议参会',
 
+  SelectImportantAttendance:
+  '选择必须参会人员',
+
   SelectAttendance:
-  '选择参会人员',
+  '选择其他参会人员',
 
   ChooseConference:
   '确认会议方案',
@@ -35,8 +38,17 @@ let texts = {
   Arrangement:
   '方案',
 
+  ImportantAttendance:
+  '必须参会人员',
+
   Attendance:
-  '参会人员',
+  '其他参会人员',
+
+  ServerError:
+  '服务器错误...',
+
+  RegularEmployee:
+  '普通员工',
 
 };
 

@@ -5,11 +5,10 @@ import {
   Router,
 } from 'react-native-router-flux';
 import NavigationCardStackStyleInterpolator from 'NavigationCardStackStyleInterpolator';
-import { 
+import {
   connect,
   Provider,
 } from 'react-redux';
-
 
 import LoginPage from './pages/login';
 import ConferenceListPage from './pages/conferenceList';
@@ -21,8 +20,8 @@ import ViewAttendancePage from './pages/viewAttendance';
 
 import configureStore from './lib/configureStore';
 import { getInitialState } from './reducers';
+import texts from './lib/texts';
 
-const RouterWithRedux = connect()(Router);
 
 export default class ConferenceApp extends Component {
 
@@ -39,6 +38,7 @@ export default class ConferenceApp extends Component {
 
       <Scene key="conferenceList"
         component={ConferenceListPage}
+        title={texts.ConferenceManagementSystem}
         getSceneStyle={NavigationCardStackStyleInterpolator.forVertical}
       />
 
@@ -73,6 +73,8 @@ export default class ConferenceApp extends Component {
   render() {
 
     const store = configureStore(getInitialState());
+
+    const RouterWithRedux = connect()(Router);
 
     return (
       <Provider store={store}>

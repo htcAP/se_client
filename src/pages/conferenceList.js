@@ -46,6 +46,12 @@ class ConferenceListPage extends Component {
     Actions.conferenceView();
   }
 
+  logout = () => {
+    Actions.login({
+      type: 'reset',
+    });
+  }
+
   onRefresh = () => {
     this.setState({isRefreshing: true});
     setTimeout(() => {
@@ -71,13 +77,15 @@ class ConferenceListPage extends Component {
               htc
             </Text>
             <Text style={styles.titleText}>
-              Regular Employee
+              { texts.RegularEmployee }
             </Text>
           </View>
         </View>
 
         <View style={styles.drawerContainer}>
-          <TouchableNativeFeedback delayPressIn={20}>
+          <TouchableNativeFeedback delayPressIn={20}
+            onPress={this.logout}
+          >
           <View style={styles.drawerItem}>
             <Icon
               name="exit-to-app"
@@ -86,7 +94,7 @@ class ConferenceListPage extends Component {
               style={styles.drawerIcon}
             />
             <Text style={styles.drawerText}>
-              {texts.Logout}
+              { texts.Logout }
             </Text>
           </View>
           </TouchableNativeFeedback>
@@ -117,7 +125,6 @@ class ConferenceListPage extends Component {
               iconName="menu"
               onTouch={this.openDrawer}
             />}
-            title={texts.ConferenceManagementSystem}
           />
 
           <ScrollView

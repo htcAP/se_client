@@ -24,8 +24,16 @@ export default class ConferenceViewPage extends Component {
     Actions.pop();
   };
 
+  viewImportantAttendance = () => {
+    Actions.viewAttendance({
+      title: texts.ImportantAttendance
+    });
+  }
+
   viewAttendance = () => {
-    Actions.viewAttendance();
+    Actions.viewAttendance({
+      title: texts.Attendance
+    });
   }
 
   render() {
@@ -95,7 +103,7 @@ export default class ConferenceViewPage extends Component {
 
         <View style={theme.conferDetailItermContainer}>
           <TouchableNativeFeedback delayPressIn={20}
-            onPress={this.viewAttendance}
+            onPress={this.viewImportantAttendance}
           >
           <View style={[theme.conferDetailIterm]}>
             <Icon style={theme.conferDetailIcon}

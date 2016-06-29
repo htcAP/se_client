@@ -4,11 +4,14 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
+import { connect } from 'react-redux';
+
 import theme from '../lib/theme';
 
-export default class NavBar extends Component {
+class NavBar extends Component {
 
   render() {
+
     return (
       <View style={styles.container}>
         <View style={styles.leftNav}>
@@ -16,7 +19,7 @@ export default class NavBar extends Component {
         </View>
         <View style={styles.title}>
           <Text style={styles.titleText}>
-            { this.props.title }
+            { this.props.scene.title }
           </Text>
         </View>
         <View style={styles.rightNav}>
@@ -27,6 +30,12 @@ export default class NavBar extends Component {
   }
 
 }
+
+export default connect(
+  (state) => {
+    return { scene: state.router.scene };
+  }
+)(NavBar);
 
 const styles = StyleSheet.create({
   container: {

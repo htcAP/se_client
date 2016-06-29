@@ -29,8 +29,7 @@ export default class ViewAttendancePage extends Component {
     return (
       <View>
         <StatusBar />
-        <NavBar title={texts.Attendance}
-          leftNav={ <IconButton
+        <NavBar leftNav={ <IconButton
             iconName="clear"
             onTouch={this.cancelOperation}
           />}
