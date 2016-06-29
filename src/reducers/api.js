@@ -28,7 +28,7 @@ export default {
           ret = {
             ...ret,
             ...JSON.parse(body),
-          }
+          };
 
         } catch (e) {
           throw {
@@ -40,6 +40,7 @@ export default {
         if (rsp.status !== 200) {
           throw ret;
         }
+
         return ret;
       });
     });

@@ -50,6 +50,27 @@ let texts = {
   RegularEmployee:
   '普通员工',
 
+  Hour:
+  '小时',
+
+  Minute:
+  '分钟',
+
+  Year:
+  '年',
+
+  Month:
+  '月',
+
+  Day:
+  '日',
+
+  AM:
+  '上午',
+
+  PM:
+  '下午',
+  
 };
 
 export default texts;

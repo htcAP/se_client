@@ -6,6 +6,7 @@ export const initialState = {
     loggingIn: false,
     loginFailed: false,
     failedReason: '',
+    username: '',
   },
 };
 
@@ -23,6 +24,7 @@ export function reducer(state = initialState.session, action) {
       loggedIn: true,
       loggingIn: false,
       loginFailed: false,
+      username: action.username,
     };
 
     case session.LOGIN_FAILED:

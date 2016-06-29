@@ -15,6 +15,9 @@ import {
 import {
   Actions
 } from 'react-native-router-flux';
+import {
+  connect
+} from 'react-redux';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -74,7 +77,7 @@ class ConferenceListPage extends Component {
           </View>
           <View style={styles.subtitle}>
             <Text style={[styles.titleText, {fontFamily: 'sans-serif-medium'}]}>
-              htc
+              { this.props.session.username }
             </Text>
             <Text style={styles.titleText}>
               { texts.RegularEmployee }
@@ -192,7 +195,9 @@ class ConferenceListPage extends Component {
   }
 }
 
-export default ConferenceListPage;
+export default connect(
+  ({ session }) => ({session})
+)(ConferenceListPage);
 
 const styles = StyleSheet.create({
   titleBar: {

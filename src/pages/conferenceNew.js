@@ -18,7 +18,29 @@ import theme from '../lib/theme';
 import texts from '../lib/texts';
 import StatusBar from '../components/statusbar';
 
+import {
+  describeDate,
+  describeTime,
+  describeDuration,
+} from '../lib/utils';
+
+
 export default class ConferenceNewPage extends Component {
+
+  constructor(props) {
+    super(props);
+    const now = new Date();
+    this.state = {
+      startAfter: now,
+      endBefore: new Date(),
+      duration: new Date(0),
+    };
+
+    this.state.endBefore.setHours(now.getHours() + 1);
+    this.state.duration.setMinutes(30);
+
+    console.log(this.state);
+  }
 
   cancelOperation = () => {
     this._titleInput.blur();
@@ -42,6 +64,8 @@ export default class ConferenceNewPage extends Component {
   }
 
   render() {
+    console.log(this.state);
+
     return (
       <View style={{backgroundColor: '#fff'}}>
         <StatusBar />
@@ -94,10 +118,10 @@ export default class ConferenceNewPage extends Component {
             />
             <View style={theme.conferDetailContent}>
               <Text style={theme.conferDetailContentText}>
-                2016 June 1st
+                { describeDate(this.state.startAfter) }
               </Text>
               <Text style={theme.conferDetailContentText}>
-                9:30 AM
+                { describeTime(this.state.startAfter) }
               </Text>
             </View>
           </View>
@@ -106,10 +130,10 @@ export default class ConferenceNewPage extends Component {
             <View style={theme.conferDetailIcon} />
             <View style={theme.conferDetailContent}>
               <Text style={theme.conferDetailContentText}>
-                2016 June 1st
+                { describeDate(this.state.endBefore) }
               </Text>
               <Text style={theme.conferDetailContentText}>
-                10:30 AM
+                { describeTime(this.state.endBefore) }
               </Text>
             </View>
           </View>
@@ -117,7 +141,7 @@ export default class ConferenceNewPage extends Component {
           <View style={[theme.conferDetailIterm]}>
             <View style={theme.conferDetailIcon} />
             <Text style={[theme.conferDetailContent, theme.conferDetailContentText]}>
-              30 Minutes
+              { describeDuration(this.state.duration) }
             </Text>
           </View>
         </View>
