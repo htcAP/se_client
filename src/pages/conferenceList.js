@@ -112,7 +112,7 @@ class ConferenceListPage extends Component {
     .build();
 
   render() {
-    const refreshing = this.props.meeting.listFetching;
+    const refreshing = this.props.meeting.listFetching || this.props.meeting.creating;
 
     let meetingList = Object.keys(this.props.meeting.items)
     .map(mid => this.props.meeting.items[mid]);

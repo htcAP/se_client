@@ -39,13 +39,15 @@ class ConferenceViewPage extends Component {
 
   viewImportantAttendance = () => {
     Actions.viewAttendance({
-      title: texts.ImportantAttendance
+      title: texts.ImportantAttendance,
+      users: this.props.meeting.items[this.props.mid].required_users,
     });
   }
 
   viewAttendance = () => {
     Actions.viewAttendance({
-      title: texts.Attendance
+      title: texts.Attendance,
+      users: this.props.meeting.items[this.props.mid].suggested_users,
     });
   }
 

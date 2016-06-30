@@ -92,6 +92,9 @@ let texts = {
   ConfirmConference:
   '确认会议方案',
 
+  NoPeople:
+  '这里没有要显示的人',
+
 };
 
 export default texts;

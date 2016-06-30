@@ -64,7 +64,20 @@ class ConferenceNewPage extends Component {
   };
 
   confirmNewConference = (suggested) => {
+    const { dispatch } = this.props;
+    const title = this._titleInput._lastNativeText || '';
+    const note = this._noteInput._lastNativeText || '';
+
     console.log(suggested);
+    dispatch(actions.meetingCreate({
+      start_time: suggested.start_time,
+      end_time: suggested.end_time,
+      title, note,
+      room_id: suggested.room.id,
+      required_ids: this.state.mustAttendUsers.map(u => u.uid),
+      suggested_ids: this.state.suggestAttendUsers.map(u => u.uid),
+
+    })).catch(toastError);
   }
 
   requestSuggestion = () => {

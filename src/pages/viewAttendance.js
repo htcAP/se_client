@@ -7,9 +7,6 @@ import {
   Image,
 } from 'react-native';
 import {
-  MKCheckbox,
-} from 'react-native-material-kit';
-import {
   Actions,
 } from 'react-native-router-flux';
 
@@ -26,6 +23,31 @@ export default class ViewAttendancePage extends Component {
   }
 
   render() {
+    let userList = this.props.users.map(u => (
+      <View key={u.uid} style={styles.item}>
+        <Image style={styles.itemAvatar}
+          source={require('../res/avatar.jpg')}
+        />
+        <Text style={styles.itemText}>
+          { u.username }
+        </Text>
+      </View>
+    ));
+    if (userList.length) {
+      userList.unshift(
+        <View key={-1} style={theme.headerPadding} />
+      );
+      userList.push(
+        <View key={-2} style={theme.headerPadding} />
+      );
+    } else {
+      userList.push(
+        <View style={styles.blankPageContainer}>
+          <Text> { texts.NoPeople } </Text>
+        </View>
+      );
+    }
+
     return (
       <View>
         <StatusBar />
@@ -35,36 +57,8 @@ export default class ViewAttendancePage extends Component {
           />}
         />
         <ScrollView>
-          <View style={[theme.headerPadding]} />
 
-          <View style={styles.item}>
-            <Image style={styles.itemAvatar}
-              source={require('../res/avatar.jpg')}
-            />
-            <Text style={styles.itemText}>
-            htc
-            </Text>
-          </View>
-
-          <View style={styles.item}>
-            <Image style={styles.itemAvatar}
-              source={require('../res/avatar.jpg')}
-            />
-            <Text style={styles.itemText}>
-            htc
-            </Text>
-          </View>
-
-          <View style={styles.item}>
-            <Image style={styles.itemAvatar}
-              source={require('../res/avatar.jpg')}
-            />
-            <Text style={styles.itemText}>
-            htc
-            </Text>
-          </View>
-
-          <View style={[theme.headerPadding]} />
+        { userList }
 
         </ScrollView>
       </View>
@@ -94,5 +88,11 @@ const styles = StyleSheet.create({
   itemText: {
     flex: 1,
     fontSize: 16,
+  },
+
+  blankPageContainer: {
+    height: 56,
+    alignItems: 'center',
+    justifyContent: 'center', 
   }
 });
