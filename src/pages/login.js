@@ -91,12 +91,12 @@ class LoginPage extends Component {
 
           <View style={styles.wrapper}>
           <View style={styles.content}>
-            <this.UsernameInput ref={(c) => {this._usernameInput = c;}} />
-            <this.PasswordInput ref={(c) => {this._passwordInput = c;}} />
+            <this.UsernameInput ref={(c) => this._usernameInput = c} />
+            <this.PasswordInput ref={(c) => this._passwordInput = c} />
             <ActivityIndicator
               animating={this.props.session.loggingIn}
             />
-            <this.LoginButton ref={(c) => {this._loginButton = c;}} />
+            <this.LoginButton ref={(c) => this._loginButton = c} />
           </View>
           </View>
       </View>

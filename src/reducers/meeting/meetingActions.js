@@ -41,15 +41,16 @@ export function meetingFetchSuggestion({
       required_ids,
 
     }).then(({suggestions}) => {
+      suggestions = suggestions.concat(suggestions);
       dispatch({
-        type: meeting.SUGGESTION_FETCH_SUCCESS,
+        type: meeting.SUGGESTION_SUCCESS,
         suggestions,
       });
       return suggestions;
 
     }).catch(reason => {
       dispatch({
-        type: meeting.SUGGESTIONG_FETCH_FAILED,
+        type: meeting.SUGGESTIONG_FAILED,
         reason,
       });
       throw reason;

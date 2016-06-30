@@ -28,7 +28,6 @@ setTheme({
   },
 
   conferDenseDetailItermContainer: {
-    backgroundColor: '#fff',
     paddingTop: 4,
     paddingBottom: 4,
     paddingRight: 16,

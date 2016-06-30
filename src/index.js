@@ -54,6 +54,7 @@ export default class ConferenceApp extends Component {
 
       <Scene key="conferenceChoose"
         component={ConferenceChoosePage}
+        title={texts.ConfirmConference}
         getSceneStyle={NavigationCardStackStyleInterpolator.forVertical}
       />
 

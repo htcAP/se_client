@@ -30,7 +30,7 @@ let texts = {
   '选择必须参会人员',
 
   SelectAttendance:
-  '选择其他参会人员',
+  '选择建议参会人员',
 
   ChooseConference:
   '确认会议方案',
@@ -82,6 +82,15 @@ let texts = {
 
   OK:
   '知道了',
+
+  PleaseInputTitle:
+  '请输入会议名称',
+
+  PleaseInputNote:
+  '请输入会议内容',
+
+  ConfirmConference:
+  '确认会议方案',
 
 };
 

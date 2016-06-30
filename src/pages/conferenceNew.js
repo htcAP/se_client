@@ -24,7 +24,6 @@ import NavBar2 from '../components/navbar2';
 import theme from '../lib/theme';
 import texts from '../lib/texts';
 import StatusBar from '../components/statusbar';
-
 import {
   describeDate,
   describeTime,
@@ -32,7 +31,10 @@ import {
   describeUserList,
   addDuration,
   minusDuration,
+  toastError,
 } from '../lib/utils';
+
+import { actions } from '../reducers';
 
 
 class ConferenceNewPage extends Component {
@@ -50,7 +52,8 @@ class ConferenceNewPage extends Component {
       suggestAttendUsers: [],
     };
 
-    this.state.endBefore.setHours(now.getHours() + 1);
+    this.state.startAfter.setHours(now.getHours() + 1);
+    this.state.endBefore.setHours(now.getHours() + 2);
     this.state.duration.setHours(0);
     this.state.duration.setMinutes(30);
   }
@@ -60,8 +63,52 @@ class ConferenceNewPage extends Component {
     Actions.pop();
   };
 
+  confirmNewConference = (suggested) => {
+    console.log(suggested);
+  }
+
+  requestSuggestion = () => {
+    const { dispatch } = this.props;
+    return dispatch(actions.meetingFetchSuggestion({
+      range_start: this.state.startAfter.toGMTString(),
+      range_end: this.state.endBefore.toGMTString(),
+      duration: this.state.duration.getHours() * 60 + this.state.duration.getMinutes(),
+      required_ids: this.state.mustAttendUsers.map(u => u.uid),
+
+    })).catch(toastError);
+  }
+
   submitNewConference = () => {
-    Actions.conferenceChoose();
+    // FIXME: avoid to use _lastNativeText
+    const title = this._titleInput._lastNativeText || '';
+    const note = this._noteInput._lastNativeText || '';
+
+    if (title === '') {
+      Alert.alert(
+        texts.WrongInput,
+        texts.PleaseInputTitle,
+        [ { text: texts.OK, onPress: () => {
+          this._titleInput.focus();
+        } } ]
+      );
+      return;
+    }
+    if (note === '') {
+      Alert.alert(
+        texts.WrongInput,
+        texts.PleaseInputNote,
+        [ { text: texts.OK, onPress: () => {
+          this._noteInput.focus();
+        } } ]
+      );
+      return;
+    }
+
+    this.requestSuggestion();
+    Actions.conferenceChoose({
+      confirmNew: this.confirmNewConference,
+      requestSuggestion: this.requestSuggestion,
+    });
   }
 
   selectImportantAttendance = () => {
@@ -88,13 +135,12 @@ class ConferenceNewPage extends Component {
   }
 
   adjustDate = (name, newVal) => {
-
     const state = { [name]: newVal };
     if (name !== 'duration' && newVal < new Date()) {
       Alert.alert(
         texts.WrongInput,
         texts.PleaseInputDateAfterNow,
-        [ {text: texts.OK } ]
+        [ { text: texts.OK } ]
       );
       return {};
     }
@@ -165,7 +211,9 @@ class ConferenceNewPage extends Component {
 
     return (
       <View style={{backgroundColor: '#fff'}}>
+
         <StatusBar />
+
         <NavBar2
           leftNav={<IconButton
             iconName="clear"
@@ -178,9 +226,11 @@ class ConferenceNewPage extends Component {
           title={
             <TextInput style={styles.title}
               autoFocus={true}
+              blurOnSubmit={true}
               placeholder={texts.InputConferenceName}
               placeholderTextColor={theme.lightPrimaryTextColor}
               keyboardType="twitter"
+              retunKeyType="done"
               underlineColorAndroid="transparent"
               ref={(c) => this._titleInput = c}
             />
@@ -197,11 +247,13 @@ class ConferenceNewPage extends Component {
             name="subject" size={24}
           />
           <TextInput style={[theme.conferDetailContent, theme.conferDetailContentText]}
+            blurOnSubmit={true}
             placeholder={texts.ConferenceContent}
             placeholderTextColor={theme.lightSecondaryTextColor}
             keyboardType="twitter"
+            retunKeyType="done"
             underlineColorAndroid="transparent"
-            ref={(c) => this._titleInput = c}
+            ref={(c) => this._noteInput = c}
           />
         </View>
         </View>

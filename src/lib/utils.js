@@ -50,6 +50,7 @@ export function describeDuration(t) {
 }
 
 export function toastError(reason) {
+  console.log(reason);
   ToastAndroid.show(reason.message, ToastAndroid.SHORT);
 }
 
