@@ -58,7 +58,7 @@ export function describeUserList(ul) {
     let ret = '';
     ul.forEach((u, idx) => {
       if (idx > 1) {
-        ret += ',';
+        ret += ', ';
       }
       ret += u.username;
     });
@@ -66,9 +66,9 @@ export function describeUserList(ul) {
     return ret;
   }
 
-  let ret = ul[0].username + ',';
-  ret += ul[1].username + ',';
-  ret += ul[2].username + ',';
+  let ret = ul[0].username + ', ';
+  ret += ul[1].username + ', ';
+  ret += ul[2].username + ', ';
   ret += '... (' + ul.length + ')';
 
   return ret;

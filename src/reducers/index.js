@@ -8,15 +8,20 @@ import * as session from './session/sessionReducer';
 import * as meetingActions from './meeting/meetingActions';
 import * as meeting from './meeting/meetingReducer';
 
+import * as userActions from './user/userActions';
+import * as user from './user/userReducer';
+
 export const rootReducer = combineReducers({
   router: router.reducer,
   session: session.reducer,
   meeting: meeting.reducer,
+  user: user.reducer,
 });
 
 export const actions = {
   ...sessionActions,
   ...meetingActions,
+  ...userActions,
 };
 
 export function getInitialState() {
@@ -24,6 +29,7 @@ export function getInitialState() {
     ...router.initialState,
     ...session.initialState,
     ...meeting.initialState,
+    ...user.initialState,
   };
   return state;
 }

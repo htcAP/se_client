@@ -13,23 +13,67 @@ import {
   Actions,
 } from 'react-native-router-flux';
 
+import {
+  connect,
+} from 'react-redux';
+
 import NavBar from '../components/navbar';
 import IconButton from '../components/iconButton';
 import StatusBar from '../components/statusbar';
 import theme from '../lib/theme';
 
-export default class SelectAttendancePage extends Component {
+class SelectAttendancePage extends Component {
+
+  constructor(props) {
+    super(props);
+
+
+    this.state = { };
+    Object.keys(this.props.user.items).forEach((uid) => {
+      this.state[uid] = {
+        selected: false,
+        disabled: false,
+      };
+    });
+
+    this.props.selectedUsers.forEach((u) => {
+      this.state[u.uid].selected = true;
+    });
+
+    this.props.disabledUsers.forEach((u) => {
+      this.state[u.uid].disabled = true;
+    });
+  }
 
   cancelOperation = () => {
     Actions.pop();
   }
 
   submit = () => {
+    this.props.setSelection([]);
     Actions.pop();
   }
 
   render() {
-    console.log(this.props);
+
+    let userList = Object.keys(this.state).forEach((uid) => {
+      const u = this.state[uid];
+
+      return (
+        <View key={uid} style={styles.item}>
+          <Image style={styles.itemAvatar}
+            source={require('../res/avatar.jpg')}
+          />
+          <Text style={styles.itemText}>
+            { this.props.user.items[uid].name }
+          </Text>
+          <MKCheckbox
+            checked={u.checked}
+            editable={u.disabled}
+          />
+        </View>
+      );
+    });
 
     return (
       <View>
@@ -47,35 +91,7 @@ export default class SelectAttendancePage extends Component {
         <ScrollView>
           <View style={[theme.headerPadding]} />
 
-          <View style={styles.item}>
-            <Image style={styles.itemAvatar}
-              source={require('../res/avatar.jpg')}
-            />
-            <Text style={styles.itemText}>
-            htc
-            </Text>
-            <MKCheckbox />
-          </View>
-
-          <View style={styles.item}>
-            <Image style={styles.itemAvatar}
-              source={require('../res/avatar.jpg')}
-            />
-            <Text style={styles.itemText}>
-            htc
-            </Text>
-            <MKCheckbox />
-          </View>
-
-          <View style={styles.item}>
-            <Image style={styles.itemAvatar}
-              source={require('../res/avatar.jpg')}
-            />
-            <Text style={styles.itemText}>
-            htc
-            </Text>
-            <MKCheckbox />
-          </View>
+          { userList }
 
           <View style={[theme.headerPadding]} />
 
@@ -85,6 +101,10 @@ export default class SelectAttendancePage extends Component {
   }
 
 }
+
+export default connect(
+  (({user}) => ({user}))
+)(SelectAttendancePage);
 
 const styles = StyleSheet.create({
   item: {

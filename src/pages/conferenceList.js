@@ -45,10 +45,7 @@ class ConferenceListPage extends Component {
   }
 
   viewConference = (mid) => {
-    Actions.conferenceView({
-      mid,
-      title: texts.ConferenceManagementSystem,
-    });
+    Actions.conferenceView({ mid });
   }
 
   logout = () => {
@@ -115,6 +112,7 @@ class ConferenceListPage extends Component {
     .build();
 
   render() {
+    const refreshing = this.props.meeting.listFetching;
 
     let meetingList = Object.keys(this.props.meeting.items)
     .map(mid => this.props.meeting.items[mid]);
@@ -153,6 +151,14 @@ class ConferenceListPage extends Component {
       meetingList.unshift(
         <View key={-1} style={theme.headerPadding} />
       );
+    } else if (!refreshing) {
+      meetingList.push(
+        <View key={-1} style={styles.blankContainer}>
+          <Text style={styles.conferTitle} >
+            {texts.NoConference}
+          </Text>
+        </View>
+      );
     }
 
     return (
@@ -173,7 +179,7 @@ class ConferenceListPage extends Component {
 
           <ScrollView
             refreshControl={ <RefreshControl
-              refreshing={this.props.meeting.listFetching}
+              refreshing={refreshing}
               onRefresh={this.onRefresh}
               colors={[theme.primaryColor, theme.secondaryColor]}
             />}
@@ -287,5 +293,11 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
   },
+
+  blankContainer: {
+    height: 88,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 
 });

@@ -9,38 +9,26 @@ export const session = genActionConstants('SESSION_', [
 
 export function login(username, password) {
   return dispatch => {
-    dispatch(loginRequest());
+    dispatch({
+      type: session.LOGIN_REQUEST
+    });
 
     return api.post('/sessions', {
       username, password
 
     }).then(result => {
-        dispatch(loginSuccess(result.uid, username));
+      dispatch({
+        type: session.LOGIN_SUCCESS,
+        uid: result.uid,
+        username,
+      });
 
-    }).catch(e => {
-      dispatch(loginFailed(e));
-      throw e;
-
+    }).catch(reason => {
+      dispatch({
+        type: session.LOGIN_FAILED,
+        reason,
+      });
+      throw reason;
     });
-  };
-}
-
-export function loginRequest() {
-  return {
-    type: session.LOGIN_REQUEST
-  };
-}
-
-export function loginFailed(reason) {
-  return {
-    type: session.LOGIN_FAILED,
-    reason
-  };
-}
-
-export function loginSuccess(uid, username) {
-  return {
-    type: session.LOGIN_SUCCESS,
-    uid, username,
   };
 }

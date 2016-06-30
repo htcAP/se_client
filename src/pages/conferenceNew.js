@@ -8,11 +8,16 @@ import {
   TouchableNativeFeedback,
   DatePickerAndroid,
   TimePickerAndroid,
+  Alert,
 } from 'react-native';
 import {
   Actions,
 } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
+import {
+  connect,
+} from 'react-redux';
 
 import IconButton from '../components/iconButton';
 import NavBar2 from '../components/navbar2';
@@ -24,18 +29,23 @@ import {
   describeDate,
   describeTime,
   describeDuration,
+  describeUserList,
 } from '../lib/utils';
 
 
-export default class ConferenceNewPage extends Component {
+class ConferenceNewPage extends Component {
 
   constructor(props) {
     super(props);
+
+    const uid = this.props.session.uid;
     const now = new Date();
     this.state = {
       startAfter: now,
       endBefore: new Date(),
       duration: new Date(0),
+      mustAttendUsers: [ this.props.user.items[uid] ],
+      suggestAttendUsers: [],
     };
 
     this.state.endBefore.setHours(now.getHours() + 1);
@@ -55,18 +65,51 @@ export default class ConferenceNewPage extends Component {
 
   selectImportantAttendance = () => {
     Actions.selectAttendance({
-      title: texts.SelectImportantAttendance
+      title: texts.SelectImportantAttendance,
+      setSelection: mustAttendUsers => {
+        // this.setState({ mustAttendUsers });
+      },
+      selectedUsers: this.state.mustAttendUsers,
+      disabledUsers: this.state.suggestAttendUsers
+        .concat(this.props.user.items[this.props.session.uid]),
     });
   }
 
   selectAttendance = () => {
     Actions.selectAttendance({
-      title: texts.SelectAttendance
+      title: texts.SelectAttendance,
+      setSelection: suggestAttendUsers => {
+        // this.setState({ suggestAttendUsers });
+      },
+      selectedUsers: this.suggestAttendUsers,
+      disabledUsers: this.mustAttendUsers,
     });
   }
 
+  adjustDate = (name, newVal) => {
+    if (newVal < new Date()) {
+      Alert.alert(
+        texts.WrongInput,
+        texts.PleaseInputDateAfterNow,
+        [ {text: texts.OK } ]
+      );
+      return {};
+    }
+
+    const state = { [name]: newVal };
+    if (name === 'startAfter') {
+      if (newVal > this.state.endBefore) {
+        state.endBefore = newVal;
+      }
+    } else if (this.state.startAfter > newVal) {
+      state.startAfter = newVal;
+    }
+
+    return state;
+  }
+
   setDate = (name) => {
-    const date = this.state[name];
+    const date = new Date(this.state[name]);
 
     DatePickerAndroid.open({
       date
@@ -79,15 +122,12 @@ export default class ConferenceNewPage extends Component {
       date.setMonth(month);
       date.setDate(day);
 
-      this.setState({
-        [name]: date,
-      });
+      this.setState(this.adjustDate(name, date));
     });
   }
 
   setTime = (name) => {
-    const date = this.state[name];
-    console.log(date);
+    const date = new Date(this.state[name]);
 
     TimePickerAndroid.open({
       hour: date.getHours(),
@@ -100,9 +140,7 @@ export default class ConferenceNewPage extends Component {
       date.setHours(hour);
       date.setMinutes(minute);
 
-      this.setState({
-        [name]: date
-      });
+      this.setState(this.adjustDate(name, date));
     });
   }
 
@@ -139,8 +177,7 @@ export default class ConferenceNewPage extends Component {
         <View style={theme.conferDetailItermContainer}>
         <View style={theme.conferDetailIterm}>
           <Icon style={theme.conferDetailIcon}
-            name="subject"
-            size={24}
+            name="subject" size={24}
           />
           <TextInput style={[theme.conferDetailContent, theme.conferDetailContentText]}
             placeholder={texts.ConferenceContent}
@@ -155,8 +192,7 @@ export default class ConferenceNewPage extends Component {
         <View style={theme.conferDetailItermContainer}>
           <View style={[theme.conferDetailIterm]}>
             <Icon style={theme.conferDetailIcon}
-              name="query-builder"
-              size={24}
+              name="query-builder" size={24}
             />
             <View style={theme.conferDetailContent}>
               <TouchableNativeFeedback delayPressIn={20}
@@ -219,12 +255,11 @@ export default class ConferenceNewPage extends Component {
           >
           <View style={[theme.conferDetailIterm]}>
             <Icon style={theme.conferDetailIcon}
-              name="people"
-              size={24}
+              name="people" size={24}
             />
             <View style={theme.conferDetailContent}>
-              <Text style={theme.conferDetailContentText}>
-                htc, tzy
+              <Text style={[theme.conferDetailContentText, {flex: 1}]}>
+                { describeUserList(this.state.mustAttendUsers) }
               </Text>
               <Text style={theme.conferDetailContentText}>
                 { texts.MustAttend }
@@ -239,8 +274,8 @@ export default class ConferenceNewPage extends Component {
           <View style={[theme.conferDetailIterm]}>
             <View style={theme.conferDetailIcon} />
             <View style={theme.conferDetailContent}>
-              <Text style={theme.conferDetailContentText}>
-                htc, tzy
+              <Text style={[theme.conferDetailContentText, {flex: 1}]}>
+                { describeUserList(this.state.suggestAttendUsers) }
               </Text>
               <Text style={theme.conferDetailContentText}>
                 { texts.SuggestAttend }
@@ -258,6 +293,10 @@ export default class ConferenceNewPage extends Component {
   }
 
 }
+
+export default connect(
+  (({session, user}) => ({session, user}))
+)(ConferenceNewPage);
 
 const styles = StyleSheet.create({
   title: {

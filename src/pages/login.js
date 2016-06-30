@@ -47,6 +47,8 @@ class LoginPage extends Component {
       Actions.conferenceList({ type: 'reset' });
       dispatch(actions.meetingFetchList())
       .catch(toastError);
+      dispatch(actions.userFetchList())
+      .catch(toastError);
 
     }).catch(reason => {
       ToastAndroid.show(reason.message, ToastAndroid.SHORT);

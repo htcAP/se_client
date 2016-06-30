@@ -71,6 +71,18 @@ let texts = {
   PM:
   '下午',
 
+  NoConference:
+  '还没有会议 :)',
+
+  WrongInput:
+  '不, 不行',
+
+  PleaseInputDateAfterNow:
+  '请选择现在之后的时间',
+
+  OK:
+  '知道了',
+
 };
 
 export default texts;
