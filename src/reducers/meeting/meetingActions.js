@@ -79,7 +79,8 @@ export function meetingFetchSuggestion({
       required_ids,
 
     }).then(({suggestions}) => {
-      suggestions = suggestions.concat(suggestions);
+      // suggestions = suggestions.concat(suggestions);
+      // suggestions = suggestions.concat(suggestions);
       dispatch({
         type: meeting.SUGGESTION_SUCCESS,
         suggestions,

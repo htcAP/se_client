@@ -30,6 +30,7 @@ import {
   toastError,
   describeDate,
   describeTime,
+  userInList,
 } from '../lib/utils';
 
 import { actions } from '../reducers';
@@ -118,6 +119,13 @@ class ConferenceListPage extends Component {
     .map(mid => this.props.meeting.items[mid]);
     meetingList.sort((m0, m1) => m1.start_time.getTime() - m0.start_time.getTime());
     meetingList = meetingList.map(m => {
+      const uid = this.props.session.uid;
+      console.log(m);
+      const mustAttend = userInList(uid, m.required_users);
+      const suggestAttend = userInList(uid, m.suggested_users);
+      if (!mustAttend && !suggestAttend) {
+        return null;
+      }
 
       return (
         <TouchableNativeFeedback delayPressIn={20}
@@ -136,12 +144,12 @@ class ConferenceListPage extends Component {
               { m.room.name }
             </Text>
           </View>
-          <Icon
+          { mustAttend && <Icon
             style={styles.conferIcon}
             name="priority-high"
             color={theme.alertColor}
             size={20}
-          />
+          /> }
         </View>
         </TouchableNativeFeedback>
       );

@@ -42,7 +42,7 @@ export default class ViewAttendancePage extends Component {
       );
     } else {
       userList.push(
-        <View style={styles.blankPageContainer}>
+        <View key={-1} style={styles.blankPageContainer}>
           <Text> { texts.NoPeople } </Text>
         </View>
       );
@@ -91,8 +91,8 @@ const styles = StyleSheet.create({
   },
 
   blankPageContainer: {
-    height: 56,
+    height: 88,
     alignItems: 'center',
-    justifyContent: 'center', 
+    justifyContent: 'center',
   }
 });

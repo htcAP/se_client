@@ -1,7 +1,7 @@
 
 import texts from '../lib/texts';
 
-const urlbase = 'http://bus.fdu13ss.org:10010/api';
+const urlbase = 'https://bus.fdu13ss.org/api';
 
 export default {
 

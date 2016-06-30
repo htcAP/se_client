@@ -40,8 +40,7 @@ class LoginPage extends Component {
     const password = this._passwordInput.bufferedValue;
 
     dispatch(actions.login(
-      'htc', '3.14159'
-      // username, password
+      username, password
 
     )).then(() => {
       Actions.conferenceList({ type: 'reset' });

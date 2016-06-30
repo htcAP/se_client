@@ -88,3 +88,13 @@ export function minusDuration(x, duration) {
   x.setMinutes(x.getMinutes() - duration.getMinutes());
   return x;
 }
+
+export function userInList(uid, l) {
+  let ret = false;
+  l.forEach(u => {
+    if (uid == u.uid) {
+      ret = true;
+    }
+  });
+  return true;
+}

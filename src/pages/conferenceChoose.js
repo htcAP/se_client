@@ -161,7 +161,8 @@ class ConferenceChoosePage extends Component {
           />}
         />
 
-        <ScrollView style={theme.container}
+        <View style={theme.container}>
+        <ScrollView
           refreshControl={ <RefreshControl
             refreshing={this.props.meeting.suggestionFetching}
             onRefresh={this.onRefresh}
@@ -173,6 +174,7 @@ class ConferenceChoosePage extends Component {
           { suggestionList }
 
         </ScrollView>
+        </View>
 
       </View>
     );
