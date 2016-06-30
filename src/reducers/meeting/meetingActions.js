@@ -18,10 +18,45 @@ export const meeting = genActionConstants('MEETING_', [
   'CREATE_SUCCESS',
   'CREATE_FAILED',
 
-  'SUGGESTING_REQUEST',
+  'SUGGESTION_REQUEST',
   'SUGGESTION_SUCCESS',
-  'SUGGESTING_FAILED',
+  'SUGGESTION_FAILED',
 ]);
+
+export function meetingFetchSuggestion({
+  range_start,
+  range_end,
+  duration,
+  required_ids,
+}) {
+  return dispatch => {
+    dispatch({
+      type: meeting.SUGGESTION_REQUEST,
+    });
+
+    return api.post('/meetings/suggestions', {
+      range_start,
+      range_end,
+      duration,
+      required_ids,
+
+    }).then(({suggestions}) => {
+      dispatch({
+        type: meeting.SUGGESTION_FETCH_SUCCESS,
+        suggestions,
+      });
+      return suggestions;
+
+    }).catch(reason => {
+      dispatch({
+        type: meeting.SUGGESTIONG_FETCH_FAILED,
+        reason,
+      });
+      throw reason;
+
+    });
+  };
+}
 
 export function meetingFetchList() {
   return dispatch => {

@@ -4,6 +4,8 @@ export const initialState = {
   meeting: {
     items: {},
     listFetching: false,
+    suggestionFetching: false,
+    suggestions: {},
   },
 };
 
@@ -72,6 +74,27 @@ export function reducer(state = initialState.meeting, action) {
     return {
       ...state,
       items,
+    };
+
+    case meeting.SUGGESTION_REQUEST:
+    return {
+      ...state,
+      suggestionFetching: true,
+      suggestions: {},
+    };
+
+    case meeting.SUGGESTION_SUCCESS:
+    return {
+      ...state,
+      suggestionFetching: false,
+      suggestions: action.suggestions,
+    };
+
+    case meeting.SUGGESTION_FAILED:
+    return {
+      ...state,
+      suggestionFetching: false,
+      suggestions: {},
     };
 
     default:

@@ -30,6 +30,8 @@ import {
   describeTime,
   describeDuration,
   describeUserList,
+  addDuration,
+  minusDuration,
 } from '../lib/utils';
 
 
@@ -49,9 +51,8 @@ class ConferenceNewPage extends Component {
     };
 
     this.state.endBefore.setHours(now.getHours() + 1);
+    this.state.duration.setHours(0);
     this.state.duration.setMinutes(30);
-
-    console.log(this.state);
   }
 
   cancelOperation = () => {
@@ -87,7 +88,9 @@ class ConferenceNewPage extends Component {
   }
 
   adjustDate = (name, newVal) => {
-    if (newVal < new Date()) {
+
+    const state = { [name]: newVal };
+    if (name !== 'duration' && newVal < new Date()) {
       Alert.alert(
         texts.WrongInput,
         texts.PleaseInputDateAfterNow,
@@ -95,14 +98,28 @@ class ConferenceNewPage extends Component {
       );
       return {};
     }
-
-    const state = { [name]: newVal };
-    if (name === 'startAfter') {
-      if (newVal > this.state.endBefore) {
-        state.endBefore = newVal;
+    var est;
+    switch (name) {
+      case 'startAfter':
+      est = addDuration(newVal, this.state.duration);
+      if (est > this.state.endBefore) {
+        state.endBefore = est;
       }
-    } else if (this.state.startAfter > newVal) {
-      state.startAfter = newVal;
+      break;
+
+      case 'endBefore':
+      est = minusDuration(newVal, this.state.duration);
+      if (this.state.startAfter > est) {
+        state.startAfter = est;
+      }
+      break;
+
+      case 'duration':
+      est = addDuration(this.state.startAfter, newVal);
+      if (est > this.state.endBefore) {
+        state.endBefore = est;
+      }
+      break;
     }
 
     return state;
@@ -196,7 +213,7 @@ class ConferenceNewPage extends Component {
             />
             <View style={theme.conferDetailContent}>
               <TouchableNativeFeedback delayPressIn={20}
-                onPress={ () => this.setDate('startAfter') }
+                onPress={() => this.setDate('startAfter')}
               >
               <View style={[theme.conferDetailContentTextContainer, {flex: 1}]}>
                 <Text style={theme.conferDetailContentText}>
@@ -206,7 +223,7 @@ class ConferenceNewPage extends Component {
               </TouchableNativeFeedback>
 
               <TouchableNativeFeedback delayPressIn={20}
-                onPress={ () => this.setTime('startAfter') }
+                onPress={() => this.setTime('startAfter')}
               >
               <View style={theme.conferDetailContentTextContainer}>
                 <Text style={theme.conferDetailContentText}>
@@ -221,7 +238,7 @@ class ConferenceNewPage extends Component {
             <View style={theme.conferDetailIcon} />
             <View style={theme.conferDetailContent}>
               <TouchableNativeFeedback delayPressIn={20}
-                onPress={ () => this.setDate('endBefore') }
+                onPress={() => this.setDate('endBefore')}
               >
               <View style={[theme.conferDetailContentTextContainer, {flex: 1}]}>
               <Text style={theme.conferDetailContentText}>
@@ -230,7 +247,7 @@ class ConferenceNewPage extends Component {
               </View></TouchableNativeFeedback>
 
               <TouchableNativeFeedback delayPressIn={20}
-                onPress={ () => this.setTime('endBefore') }
+                onPress={() => this.setTime('endBefore')}
               >
               <View style={theme.conferDetailContentTextContainer}>
               <Text style={theme.conferDetailContentText}>
@@ -241,12 +258,16 @@ class ConferenceNewPage extends Component {
             </View>
           </View>
 
+          <TouchableNativeFeedback delayPressIn={20}
+            onPress={()=> this.setTime('duration')}
+          >
           <View style={[theme.conferDetailIterm]}>
             <View style={theme.conferDetailIcon} />
             <Text style={[theme.conferDetailContent, theme.conferDetailContentText]}>
               { describeDuration(this.state.duration) }
             </Text>
           </View>
+          </TouchableNativeFeedback>
         </View>
 
         <View style={theme.conferDetailItermContainer}>

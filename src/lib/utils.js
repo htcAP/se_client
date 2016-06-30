@@ -39,8 +39,8 @@ export function describeTime(t) {
 }
 
 export function describeDuration(t) {
-  let h = norm('0', t.getUTCHours());
-  let m = norm('0', t.getUTCMinutes());
+  let h = norm('0', t.getHours());
+  let m = norm('0', t.getMinutes());
 
   if (h > 0) {
     return h + ' ' + texts.Hour + ' ' + m + ' ' + texts.Minute;
@@ -72,4 +72,18 @@ export function describeUserList(ul) {
   ret += '... (' + ul.length + ')';
 
   return ret;
+}
+
+export function addDuration(x, duration) {
+  x = new Date(x);
+  x.setHours(x.getHours() + duration.getHours());
+  x.setMinutes(x.getMinutes() + duration.getMinutes());
+  return x;
+}
+
+export function minusDuration(x, duration) {
+  x = new Date(x);
+  x.setHours(x.getHours() - duration.getHours());
+  x.setMinutes(x.getMinutes() - duration.getMinutes());
+  return x;
 }
