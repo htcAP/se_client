@@ -5,6 +5,7 @@ import {
   ScrollView,
   Text,
   Image,
+  TouchableNativeFeedback,
 } from 'react-native';
 import {
   MKCheckbox,
@@ -27,22 +28,31 @@ class SelectAttendancePage extends Component {
   constructor(props) {
     super(props);
 
+    this.state = this.calcState(props);
+  }
 
-    this.state = { };
-    Object.keys(this.props.user.items).forEach((uid) => {
-      this.state[uid] = {
+  calcState(props) {
+    let state = {};
+    Object.keys(props.user.items).forEach((uid) => {
+      state[uid] = {
         selected: false,
         disabled: false,
       };
     });
 
-    this.props.selectedUsers.forEach((u) => {
-      this.state[u.uid].selected = true;
+    props.selectedUsers.forEach((u) => {
+      state[u.uid].selected = true;
     });
 
-    this.props.disabledUsers.forEach((u) => {
-      this.state[u.uid].disabled = true;
+    props.disabledUsers.forEach((u) => {
+      state[u.uid].disabled = true;
     });
+
+    return state;
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState(this.calcState(props));
   }
 
   cancelOperation = () => {
@@ -50,28 +60,50 @@ class SelectAttendancePage extends Component {
   }
 
   submit = () => {
-    this.props.setSelection([]);
+    const ret = Object.keys(this.state)
+      .filter(uid => this.state[uid].selected)
+      .map(uid => this.props.user.items[uid]);
+    this.props.setSelection(ret);
+
     Actions.pop();
+  }
+
+  selectUser = (uid, checked) => {
+    if (this.state[uid].disabled) {
+      return;
+    }
+    console.log(uid, checked);
+    this.setState({
+      [uid]: {
+        ...this.state[uid],
+        selected: checked,
+      }
+    });
   }
 
   render() {
 
-    let userList = Object.keys(this.state).forEach((uid) => {
+    let userList = Object.keys(this.state).map((uid) => {
       const u = this.state[uid];
 
       return (
-        <View key={uid} style={styles.item}>
+        <TouchableNativeFeedback delayPressIn={20}
+          key={uid}
+          onPress={() => this.selectUser(uid, !this.state[uid].selected)}
+        >
+        <View style={styles.item}>
           <Image style={styles.itemAvatar}
             source={require('../res/avatar.jpg')}
           />
           <Text style={styles.itemText}>
-            { this.props.user.items[uid].name }
+            { this.props.user.items[uid].username }
           </Text>
-          <MKCheckbox
-            checked={u.checked}
-            editable={u.disabled}
-          />
+          { u.disabled || <MKCheckbox
+            checked={u.selected}
+            onCheckedChange={({checked}) => this.selectUser(uid, checked)}
+          /> }
         </View>
+        </TouchableNativeFeedback>
       );
     });
 
@@ -94,7 +126,6 @@ class SelectAttendancePage extends Component {
           { userList }
 
           <View style={[theme.headerPadding]} />
-
         </ScrollView>
       </View>
     );

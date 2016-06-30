@@ -57,7 +57,7 @@ export function describeUserList(ul) {
   if (ul.length <= 3) {
     let ret = '';
     ul.forEach((u, idx) => {
-      if (idx > 1) {
+      if (idx > 0) {
         ret += ', ';
       }
       ret += u.username;

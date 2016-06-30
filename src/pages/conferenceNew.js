@@ -67,7 +67,7 @@ class ConferenceNewPage extends Component {
     Actions.selectAttendance({
       title: texts.SelectImportantAttendance,
       setSelection: mustAttendUsers => {
-        // this.setState({ mustAttendUsers });
+        this.setState({ mustAttendUsers });
       },
       selectedUsers: this.state.mustAttendUsers,
       disabledUsers: this.state.suggestAttendUsers
@@ -79,10 +79,10 @@ class ConferenceNewPage extends Component {
     Actions.selectAttendance({
       title: texts.SelectAttendance,
       setSelection: suggestAttendUsers => {
-        // this.setState({ suggestAttendUsers });
+        this.setState({ suggestAttendUsers });
       },
-      selectedUsers: this.suggestAttendUsers,
-      disabledUsers: this.mustAttendUsers,
+      selectedUsers: this.state.suggestAttendUsers,
+      disabledUsers: this.state.mustAttendUsers,
     });
   }
 
