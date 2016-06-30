@@ -92,9 +92,9 @@ export function minusDuration(x, duration) {
 export function userInList(uid, l) {
   let ret = false;
   l.forEach(u => {
-    if (uid == u.uid) {
+    if (uid === u.uid) {
       ret = true;
     }
   });
-  return true;
+  return ret;
 }

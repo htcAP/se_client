@@ -123,6 +123,7 @@ class ConferenceListPage extends Component {
       console.log(m);
       const mustAttend = userInList(uid, m.required_users);
       const suggestAttend = userInList(uid, m.suggested_users);
+      console.log(m, mustAttend, suggestAttend);
       if (!mustAttend && !suggestAttend) {
         return null;
       }
@@ -161,7 +162,7 @@ class ConferenceListPage extends Component {
       );
     } else if (!refreshing) {
       meetingList.push(
-        <View key={-1} style={styles.blankContainer}>
+        <View key={-2} style={styles.blankContainer}>
           <Text style={styles.conferTitle} >
             {texts.NoConference}
           </Text>

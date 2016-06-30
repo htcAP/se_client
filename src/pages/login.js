@@ -41,6 +41,7 @@ class LoginPage extends Component {
 
     dispatch(actions.login(
       username, password
+      // 'htc', '3.14159'
 
     )).then(() => {
       Actions.conferenceList({ type: 'reset' });
